@@ -1,0 +1,47 @@
+<div class="d-flex flex-column mt-25 w-25" style="margin-left: auto; margin-right: auto; position: relative; left: 50px; top: 90px; ">
+    <h4>Register</h4>
+
+
+    <form [formGroup]="form"  class="d-flex flex-column">
+        <mat-form-field>
+            <mat-label>First Name:</mat-label>
+            <input matInput type="text" formControlName="firstname">
+            <mat-error>First Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" formControlName="lastname">
+            <mat-error>Last Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email">
+            <mat-error>Email is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input matInput type="text" formControlName="age">
+            <mat-error>Age is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="text" formControlName="password">
+            <mat-error>password is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Confirm password</mat-label>
+            <input matInput type="text" formControlName="confirmpassword">
+            <mat-error>password is required</mat-error>
+        </mat-form-field>
+
+    </form>
+    <button mat-flat-button [disabled]="form.invalid" (click)="onSubmit(form.value)">
+        Submit
+    </button> 
+
+</div>
