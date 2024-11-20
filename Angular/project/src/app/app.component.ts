@@ -5,10 +5,11 @@ import { UserRegistrationComponent } from './components/user/user-registration/u
 import { BodyComponent } from './style/body/body.component';
 import { FooterComponent } from './style/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,UserRegistrationComponent,BodyComponent,FooterComponent,RouterLink,NavbarComponent],
+  imports: [RouterOutlet,UserRegistrationComponent,BodyComponent,FooterComponent,RouterLink,NavbarComponent,DashboardComponent],
             
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

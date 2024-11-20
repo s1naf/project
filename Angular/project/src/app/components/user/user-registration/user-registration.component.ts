@@ -3,13 +3,13 @@ import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatSelectModule } from '@angular/material/select';
 
 
 @Component({
   selector: 'app-user-registration',
   standalone: true,
-  imports: [MatInputModule,MatFormFieldModule,MatButtonModule,ReactiveFormsModule],
+  imports: [MatInputModule,MatFormFieldModule,MatButtonModule,ReactiveFormsModule,MatSelectModule],
   templateUrl: './user-registration.component.html',
   styleUrl: './user-registration.component.css'
 })
@@ -25,11 +25,10 @@ export class UserRegistrationComponent {
       Validators.min(18),
       Validators.max(100)
     ]),
+    country: new FormControl('',Validators.required),
+    city: new FormControl('',Validators.required),
     password: new FormControl('',[Validators.required,Validators.min(4)]),
-    confirmpassword: new FormControl('',[Validators.required,Validators.min(4)])
-    
-
-    
+    confirmpassword: new FormControl('',[Validators.required,Validators.min(40)])
   })
     
   onSubmit(value:any){
