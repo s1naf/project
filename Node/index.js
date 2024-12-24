@@ -1,7 +1,12 @@
 const express = require('express');
 const mongoose  = require('mongoose');
+const cors = require('cors');
 const app = express();
 const port = 3000;
+const questionsRoutes = require('./routes/choices-routes');
+const userRoutes = require('./routes/user-routes');
+
+app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(
@@ -9,22 +14,12 @@ mongoose.connect(process.env.MONGODB_URI)
         err =>{console.log('Failed to connect to MongoDB')}
     )
 
-app.use(express.json())
+app.use(express.json());
 
-app.post('/register',(req,res)=>{
-    let firstname = req.body.firstname;
-    let lastname = req.body.lastname;
-    let email = req.body.email;
-    let password = req.body.password;
-    let age = req.body.age;
 
-    console.log("Registe user:" ,firstname , lastname, email)
-    res.send(firstname)
-})
-
-const user = require('/routes/user.routes');
-app.use('/api/user',user);
+app.use('/api/users',userRoutes);
+app.use('/api/choices',questionsRoutes);
 
 app.listen(port,()=>{
-    console.log("Server is up")
+    console.log("Server is up");
 })

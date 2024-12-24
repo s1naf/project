@@ -1,4 +1,4 @@
-export interface MenuList {
+export interface NavList {
     text:string,
     routerLink:string
 }

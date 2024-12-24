@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuList } from '../../shared/interfaces/menu-list';
+
 import { RouterLink,RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-body',

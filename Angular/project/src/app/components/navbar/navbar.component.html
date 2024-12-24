@@ -1,5 +1,5 @@
-<header class="navbar navbar-expand navbar-dark flex-row bg-dark">
-    <ul class="navbar-nav flex-row">
+<!-- <header class="navbar navbar-expand navbar-dark flex-row "> -->
+    <!-- <ul class="navbar-nav flex-row">
         <li class="nav-item">
             <a class="navbar-brand cursos-pointer" role="button" routerLink="">Home</a>
         </li>
@@ -16,5 +16,16 @@
         <li class="nav-item">
             <a class="navbar-brand  cursos-pointer" role="button" routerLink="">Info</a>
         </li>
-    </ul>
-</header>  
+    </ul> -->
+ 
+<!-- </header>   -->
+
+<header class="navbar navbar-expand flex-column flex-md-row navbar-dark bg-dark  ">
+    @for (entry of navMenu; track entry){
+        <a 
+            class=" navbar-brand navbar-dark bg-dark" 
+            [routerLink] = "entry.routerLink"
+            
+        >{{entry.text}}</a>
+    }
+</header>
