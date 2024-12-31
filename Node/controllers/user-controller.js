@@ -1,6 +1,6 @@
 
 
-
+const jwt = require('jsonwebtoken');
 const User = require('../models/user-model')
 
 //TODO if admin = True => findAll
@@ -51,8 +51,8 @@ exports.create = async(req,res) =>{
         res.json({status:true,data:result})
         console.log("User with username",req.body.username, "Inserted");
     }catch(err){
-        res.json({status:false,data:err});
-        console.log("There was an error");
+        res.status(500).json({ status: false, data: err.message });
+        console.error("There was an error:", err.message);
     }
 }
 
@@ -97,4 +97,22 @@ exports.delete = async(req,res) =>{
         res.json({status:false,data:result});
         console.log("There was an error");
     }
+}
+
+exports.login = async(req,res) =>{
+    const username = req.body.username;
+    const password = req.body.password;
+
+
+
+    const user = await User(username);
+
+    if(user.password !== password){
+        return res.json({status:403,data:"Invalid password"});
+    }
+    //Signature
+    const token = jwt.sign(user,process.env.JWT_SECRET,{expiresIn:"1h"});
+    res.cookie("token",token,{httpOnly:true});
+
+    return res.redirect("/api/choices");
 }

@@ -21,11 +21,11 @@ export class UserRegistrationComponent {
 
 
   form = new FormGroup({
-    username: new FormControl('',[Validators.required]),
+    username: new FormControl('',Validators.required),
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
-    age: new FormControl('18',[
+    age: new FormControl(18,[
       Validators.required,
       Validators.pattern('^[0-9]*$'),
       Validators.min(18),
@@ -37,31 +37,60 @@ export class UserRegistrationComponent {
     confirmpassword: new FormControl('',[Validators.required,Validators.minLength(4)])
   })
     
-  onSubmit(value:any){
+  // onSubmit(value:any){
 
-    console.log(value);
+  //   console.log(value);
 
-    this.form.reset( );
+  //   this.form.reset( );
 
-    const user:User = {
-      username:this.form.get('username')?.value || '',
-      firstname:this.form.get('firstname')?.value || '',
-      lastname:this.form.get('lastname')?.value || '',
-      email:this.form.get('email')?.value || '',
-      password:this.form.get('password')?.value || '',
-      country:this.form.get('country')?.value || '',
-      city:this.form.get('city')?.value || '',
-      age:this.form.get('age')?.value || ''
+  //   const user:User = {
+  //     username:this.form.get('username')?.value || '',
+  //     firstname:this.form.get('firstname')?.value || '',
+  //     lastname:this.form.get('lastname')?.value || '',
+  //     email:this.form.get('email')?.value || '',
+  //     password:this.form.get('password')?.value || '',
+  //     country:this.form.get('country')?.value || '',
+  //     city:this.form.get('city')?.value || '',
+  //     age:this.form.get('age')?.value || ''
+  //   }
+
+  //   this.userService.registerUser(user).subscribe({
+  //     next:(response) =>{
+  //       console.log("success",response)
+  //     },
+  //     error:(response) =>{
+  //       console.log("Can not pass the sumbit button.Error",response)
+  //     }
+  //   })
+  // }
+
+  onSubmit(value: any) {
+    if (this.form.valid) {
+        const user: User = {
+            username: this.form.get('username')?.value || '',
+            firstname: this.form.get('firstname')?.value || '',
+            lastname: this.form.get('lastname')?.value || '',
+            email: this.form.get('email')?.value || '',
+            password: this.form.get('password')?.value || '',
+            country: this.form.get('country')?.value || '',
+            city: this.form.get('city')?.value || '',
+            age: this.form.get('age')?.value || 18
+        };
+
+        console.log("Submitting user:", user); // Log the user data
+
+        this.userService.registerUser(user).subscribe({
+            next: (response) => {
+                console.log("success", response);
+                this.form.reset();
+            },
+            error: (response) => {
+                console.log("Error", response);
+            }
+        });
+    } else {
+        console.log("Form is invalid");
     }
-
-    this.userService.registerUser(user).subscribe({
-      next:(response) =>{
-        console.log("success",response)
-      },
-      error:(response) =>{
-        console.log("Can not pass the sumbit button.Error",response)
-      }
-    })
-  }
+}
 
 }

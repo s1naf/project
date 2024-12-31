@@ -75,7 +75,7 @@ let userSchema = new Schema({
         trim:true},
     // age : ageSchema,
     age:{
-        type:String,
+        type:Number,
         require:[true,'age is reuired'],
         min:18,
         max:100,

@@ -5,7 +5,7 @@ import { User } from '../interfaces/mongo-backend';
 
 
 // http://localhost:3000/api/users/register
-const apiUrl=`${environment.apiURL}/api/users`
+const API_URL=`${environment.apiURL}/api/users`
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,8 @@ export class UserService {
   http:HttpClient = inject(HttpClient)
 
   registerUser(user:User){
-    return this.http.post<{msg:string}>(`${apiUrl}/register`,user)
+    return this.http.post<{msg:string}>(`${API_URL}/register`,user)
   }
 }
+
+
