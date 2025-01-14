@@ -1,1 +1,14 @@
-<p>questions works!</p>
+<div class="container">
+    <form class="form" [formGroup]="postForm">
+        
+      <div class="title">Let's create a post,</div>
+        <textarea placeholder="Share your thoughts" name="post" formControlName="post" class="input"></textarea>
+
+          <button 
+            class="button"
+            [disabled]="postForm.invalid"
+            (click)="onSubmit(postForm.value)">
+            Post →
+          </button>
+      </form>
+    </div>

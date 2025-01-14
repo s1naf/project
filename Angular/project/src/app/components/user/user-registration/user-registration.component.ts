@@ -1,5 +1,5 @@
 import { Component, inject, numberAttribute } from '@angular/core';
-import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, Validators,ReactiveFormsModule,AbstractControl, Form } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,11 +31,9 @@ export class UserRegistrationComponent {
       Validators.min(18),
       Validators.max(100)
     ]),
-    country: new FormControl('',Validators.required),
-    city: new FormControl('',Validators.required),
     password: new FormControl('',[Validators.required,Validators.minLength(4)]),
-    confirmpassword: new FormControl('',[Validators.required,Validators.minLength(4)])
-  })
+    confirmPassword: new FormControl('',[Validators.required,Validators.minLength(4)])
+  },this.passwordMatchValidator);
     
   // onSubmit(value:any){
 
@@ -64,22 +62,33 @@ export class UserRegistrationComponent {
   //   })
   // }
 
+  passwordMatchValidator(control: AbstractControl):{[key:string]:boolean}|null{
+    const form = control as FormGroup;
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+
+    
+    if(password && confirmPassword && password != confirmPassword){
+      form.get('confirmPassword')?.setErrors({missMatch:true});
+      return { missMatch:true};
+    }
+    return null;
+
+  }
   onSubmit(value: any) {
     if (this.form.valid) {
-        const user: User = {
+        const newUser: User = {
             username: this.form.get('username')?.value || '',
             firstname: this.form.get('firstname')?.value || '',
             lastname: this.form.get('lastname')?.value || '',
             email: this.form.get('email')?.value || '',
             password: this.form.get('password')?.value || '',
-            country: this.form.get('country')?.value || '',
-            city: this.form.get('city')?.value || '',
             age: this.form.get('age')?.value || 18
         };
 
-        console.log("Submitting user:", user); // Log the user data
+        console.log("Submitting user:", newUser); // Log the user data
 
-        this.userService.registerUser(user).subscribe({
+        this.userService.registerUser(newUser).subscribe({
             next: (response) => {
                 console.log("success", response);
                 this.form.reset();
@@ -93,4 +102,19 @@ export class UserRegistrationComponent {
     }
 }
 
+// checkEmail(){
+//   const email = this.form.get('email')?.value;
+//   if(email){
+//     this.userService.checkEmail(email).subscribe({
+//       next:(response) =>{
+//         console.log("success",response)
+//       },
+//       error:(response) =>{
+//         console.log("Error email exists",response)
+//       }
+//     })
+//   }
+// }
+
+// }
 }

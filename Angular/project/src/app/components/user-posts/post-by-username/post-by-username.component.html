@@ -1,0 +1,33 @@
+<div class="card">
+  <div *ngIf="isCurrentUser">
+    <div *ngFor="let user of postsByUsername">
+      
+      <div *ngFor="let post of user.posts">
+        <h1>{{ user.username }}</h1>
+        <h1>{{ post.content }}</h1>
+        <p>{{post.date}}</p>
+        <form [formGroup]="updatePostForm" (ngSubmit)="updatePost(post._id)">
+          <input type="text" formControlName ="content"  placeholder="Update post">
+          <button type="submit" [disabled]="updatePostForm.invalid">Update</button>     
+          <button (click)="deletePost(post._id)">Delete</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+    <div *ngIf="!isCurrentUser">
+      <div *ngFor="let user of postsByUsername">
+        <h1>{{ user.username }}</h1>
+          <div *ngFor="let post of user.posts">
+            <h2>{{ post.content }}</h2>
+          </div>
+      </div>
+    </div>
+    <mat-paginator 
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="onPageChange($event)">
+</mat-paginator>
+  
+</div>

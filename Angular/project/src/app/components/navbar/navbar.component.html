@@ -19,7 +19,7 @@
     </ul> -->
  
 <!-- </header>   -->
-
+<!-- 
 <header class="navbar navbar-expand flex-column flex-md-row navbar-dark bg-dark  ">
     @for (entry of navMenu; track entry){
         <a 
@@ -28,4 +28,123 @@
             
         >{{entry.text}}</a>
     }
-</header>
+</header> -->
+<!-- 
+<nav class="nav">
+    Container wrapper -->
+    <!-- <div class="container-fluid">
+        @for (entry of navMenu; track entry){
+            <a 
+                class=" navbar-brand navbar-dark bg-dark" 
+                [routerLink] = "entry.routerLink"
+                
+            >{{entry.text}}</a>
+        }
+    
+  
+      Navbar brand
+      <a class="navbar-brand" href="#">Brand</a>
+  
+      Toggle button
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      Collapsible wrapper
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  
+          Link
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+  
+        </ul>
+  
+        Icons
+        <ul class="navbar-nav d-flex flex-row me-1">
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+          </li>
+        </ul>
+  
+      </div>
+    
+    </div>
+  </nav>
+   -->
+   <!-- <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Brand</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> -->
+<!-- 
+<nav class="nav navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Brand</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+        <div>
+            <a class="title navbar-brand" routerLink="/home">Home</a>
+        </div>
+    @for (entry of navMenu; track entry){
+        <a 
+            class=" navbar-brand " 
+            [routerLink] = "entry.routerLink"
+            
+        >{{entry.text}}</a>
+    }
+
+    @if(user()){
+        <span class="me-3 d-flex gap-2 ">
+            Welcome, {{user()?.username}}
+            <mat-icon role="button" (click)="logout()">logout</mat-icon>
+        </span>
+    }
+
+    </div>
+</nav>

@@ -3,10 +3,34 @@ const mongoose  = require('mongoose');
 const cors = require('cors');
 const app = express();
 const port = 3000;
-const questionsRoutes = require('./routes/choices-routes');
+const postRoutes = require('./routes/posts-routes');
 const userRoutes = require('./routes/user-routes');
+const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 
-app.use(cors());
+app.use(helmet());
+app.use(cookieParser());
+// app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
+
+
+// const rateLimit = require('express-rate-limit');
+
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000, // 15 λεπτά
+//     max: 100 // περιορισμός σε 100 αιτήσεις ανά 15 λεπτά
+// });
+
+// app.use(limiter);
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(
@@ -14,11 +38,9 @@ mongoose.connect(process.env.MONGODB_URI)
         err =>{console.log('Failed to connect to MongoDB')}
     )
 
-app.use(express.json());
-
 
 app.use('/api/users',userRoutes);
-app.use('/api/choices',questionsRoutes);
+app.use('/api/posts',postRoutes);
 
 app.listen(port,()=>{
     console.log("Server is up");

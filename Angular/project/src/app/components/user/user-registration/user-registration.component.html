@@ -1,4 +1,4 @@
-
+<!-- 
 <div style="padding: 70px; margin-left: 30%; width: 30%;  text-align:center; ">
 
 
@@ -43,8 +43,12 @@
 
         <mat-form-field>
             <mat-label>Confirm password</mat-label>
-            <input matInput type="password" formControlName="confirmpassword">
-            <mat-error>password is required</mat-error>
+            <input matInput type="password" formControlName="confirmPassword">
+            @if (form.get("confirmPassword")?.hasError("missMatch")) {
+                <mat-error>Passwords do not match</mat-error>
+            }@else {
+                <mat-error>Confirm password is required</mat-error>
+            }
         </mat-form-field>
 
     <tr>
@@ -71,4 +75,75 @@
     </form>
 
    
+</div> -->
+
+
+
+<div class="container">
+
+
+    <form  class="form"  [formGroup]="form">
+        <div class="title">Register,<br><span>sign up to continue</span></div>
+
+        <div class="input-group">
+            <input type="text" placeholder="username" name="username" formControlName="username" class="input">
+                @if(form.get("username")?.invalid && form.get("username")?.touched){
+                    <span class="error">Username is required!</span>
+                }
+        </div>
+
+        <div class="input-group">
+            <input type="text" placeholder="First Name" name="firstname" formControlName="firstname" class="input">
+                @if (form.get("firstname")?.invalid && form.get("firstname")?.touched) {
+                    <span class="error">First Name is required!</span>
+                }
+        </div>
+
+        <div class="input-group">
+            <input type="text" placeholder="Last Name" name="lastname" formControlName="lastname" class="input">
+                @if (form.get("lastname")?.invalid && form.get("lastname")?.touched) {
+                    <span class="error">Last Name is required!</span>
+                }  
+        </div>
+        
+        <div class="input-group"> 
+            <input type="text" placeholder="Email" name="email" formControlName="email" class="input">
+                @if (form.get("email")?.invalid && form.get("email")?.touched) {
+                    <span class="error">Email is required!</span>
+                }
+        </div>
+        
+        <div class="input-group">        
+            <input type="number" placeholder="Age" name="age" formControlName="age" class="input">
+                @if (form.get("age")?.invalid && form.get("age")?.touched) {
+                    <span class="error">Age is required!</span>
+                }
+        </div>
+
+        <div class="input-group">
+            <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
+                @if (form.get("password")?.invalid && form.get("password")?.touched) {
+                    <span class="error">Password is required!</span>
+                }
+        </div>
+
+        <div class="input-group">
+            <input type="password" placeholder="Confirm password" name="confirmPassword" formControlName="confirmPassword" class="input">
+                @if (form.get("confirmPassword")?.hasError("missMatch")) {
+                    <span class="error">Passwords do not match</span>
+                }@else {
+                    @if (form.get("confirmPassword")?.invalid && form.get("confirmPassword")?.touched) {
+                        <span class="error">Confirm password is required!</span>
+                }
+                    }
+        </div>
+        <button
+            class="button"
+            [disabled]="form.invalid" 
+            (click)="onSubmit(form.value)">
+            Submit
+        </button> 
+    </form>
 </div>
+
+

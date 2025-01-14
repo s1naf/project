@@ -14,18 +14,30 @@ const Schema = mongoose.Schema;
 //     year : {type:Number}
 // }, {_id:false})
 
-let choicesQandASchema = new Schema({
-    questions:{type:String},
-    answers:{type:String},
-    date:{type:Date,default:Date.now}
-})
+// let choicesQandASchema = new Schema({
+//     questions:{type:String},
+//     answers:{type:String},
+//     date:{type:Date,default:Date.now}
+// })
 
 // let savedAnswersSchema = new Schema({
 //     answers:[String],
 //     date:{type:Date,default:Date.now}
 // })
 
+let postSchema = new Schema({
+    content: { type: String, required: true },
+    date: { type: Date, default: Date.now }
+});
+
+
+
 let userSchema = new Schema({
+    role:{
+        type:String,
+        enum: ['admin','user'],
+        default: 'user'
+    },
     username:{
         type: String,
         required: [true,'Username is required'],
@@ -65,14 +77,6 @@ let userSchema = new Schema({
             "Email address is not valid"
         ]
     },
-    country : {
-        type:String,
-        required: [true,'Country is required'],
-        trim:true},
-    city : {
-        type:String,
-        required: [true,'City is required'],
-        trim:true},
     // age : ageSchema,
     age:{
         type:Number,
@@ -86,7 +90,14 @@ let userSchema = new Schema({
     // answers : { type : [savedAnswersSchema],null:true},
     // choices:  {type:[choicesQandASchema],null:true},
 
-    choicesQandA: {type:[choicesQandASchema],null:true},
+    // choicesQandA: {te:[choicesQandASchema],null:true},
+
+    posts:{
+        type: [postSchema],
+        default: [],
+        min:3,
+        max:100,
+    }
 
 },
 {
