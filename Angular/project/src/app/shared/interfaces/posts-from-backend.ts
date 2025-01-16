@@ -6,10 +6,9 @@ export interface Post{
 
 
 export interface PostForHomePage {
+    _id: string;
+content: any;
+date: any;
     username: string;
     posts: Post[];
 }
-
-// export interface PostsFromBackend {
-//     data: PostForHomePage[];
-// }

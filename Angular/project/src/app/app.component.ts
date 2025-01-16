@@ -1,16 +1,14 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-
+import { Component,inject } from '@angular/core';
+import { RouterOutlet, RouterLink, Router , Route } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { UserService } from './shared/services/user.service';
+import { LoginComponent } from './components/login/login.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
-import { BodyComponent } from './style/body/body.component';
-import { FooterComponent } from './style/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ViewPostsComponent } from './components/user-posts/view-posts/view-posts.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, NgIf, LoginComponent,UserRegistrationComponent],
             
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -19,7 +17,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export class AppComponent {
   title = 'project';
-
+  userService = inject(UserService)
+  router = inject(Router);
 
 
 }

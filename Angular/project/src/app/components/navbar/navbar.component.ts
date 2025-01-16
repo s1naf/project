@@ -11,17 +11,38 @@ import { NavList } from '../../shared/interfaces/menu-list';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  navMenu: NavList[]= [
-    {text:"Register",routerLink:"register"},
-    {text:"Dashboard",routerLink:"dashboard"},
-    {text:"Login",routerLink:"login"},
-    {text:"Content",routerLink:"content"},
-    
-
-  ]
-
   userService = inject(UserService) 
   user = this.userService.user
+
+  navMenu: NavList[]= []
+  ngOnInit(){
+    this.specificNavMenu()
+  }
+
+  specificNavMenu(){
+    if(this.user()?.role==="admin"){
+      this.navMenu.push(
+        {text:"Admin View",routerLink:"admin/users"},
+        {text:"Admin Posts",routerLink:"admin/view"},
+        {text:"My posts",routerLink:`posts/${this.user()?.username}`},
+        {text:"Create Post",routerLink:"post/create"},
+        {text:"Latest Posts",routerLink:"home"}
+    )}
+    else{
+        this.navMenu.push(
+        {text:"My posts",routerLink:`posts/${this.user()?.username}`},
+        {text:"Create Post",routerLink:"post/create"},
+        {text:"Latest Posts",routerLink:"home"},
+        {text:"Profile",routerLink:`profile/${this.user()?.username}`}
+
+      
+      
+      )}
+      
+  }
+  
+
+
 
   logout(){
     this.userService.logoutUser()

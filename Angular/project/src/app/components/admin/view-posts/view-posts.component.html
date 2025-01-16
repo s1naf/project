@@ -1,0 +1,29 @@
+<!-- <div class="card">
+  <div *ngFor="let user of postForView">
+    <h1>{{ user.username }}</h1>
+    <div *ngFor="let post of user.posts">
+      <h2>{{ post.content }}</h2>
+    </div>
+  </div>
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div> -->
+
+<div class="card">
+  <div *ngFor="let post of postForView">
+    <h1>{{ post.username }}</h1>
+    <h2>{{ post.content }}</h2>
+    <p>{{ post.date }}</p>
+    
+    <button (click)="deletePost(post._id)">Delete</button>
+
+  </div>
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

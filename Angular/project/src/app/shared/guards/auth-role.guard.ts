@@ -12,6 +12,5 @@ export const authRoleGuard: CanActivateFn = (route, state) => {
   if (userService.user()?.role == 'admin') {
     return true;
   }
-//να επιστρεφει και ενα μυνημα λαθους
   return router.navigate(['home']);
 };

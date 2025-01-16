@@ -47,7 +47,8 @@ export class LoginComponent {
             this.userService.user.set({
               username:decodedToken.username,
               id:decodedToken.id,
-              role:decodedToken.role
+              role:decodedToken.role,
+              email:decodedToken.email
 
             })
             

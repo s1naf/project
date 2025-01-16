@@ -1,0 +1,21 @@
+<div class="card">
+    <h2>Users List</h2>
+    <ul>
+      <li *ngFor="let user of data">
+        {{ user.username }} ({{ user.role }})
+        <button class="btn btn-danger" (click)="deleteUser(user.username)">Delete</button>
+       
+        <div class="dropdown">
+          <button class="dropbtn">Role</button>
+          <div class="dropdown-content">
+            <a  (click)="changeRole(user.username, 'user',user.role)">user</a>
+            <a  (click)="changeRole(user.username, 'admin',user.role)">admin</a>
+          </div>
+        </div>
+      </li>
+    </ul> 
+    
+    @if (errorMessage) {
+        <div class="alert alert-danger">{{ errorMessage }}</div>
+    }
+</div>

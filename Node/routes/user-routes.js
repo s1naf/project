@@ -5,11 +5,15 @@ const roleAuth = require('../middleware/roles');
 
 const userController = require('../controllers/user-controller');
 
-router.get('/admin/register/users',cookieJwtAuth,roleAuth(['admin']),userController.findAll);
-router.get('/:username',cookieJwtAuth,userController.findOne);
-router.post('/register',userController.create);
-router.patch('/:username',cookieJwtAuth,userController.update);// patch updates specific documents and put updates all documents 
-router.delete('/:username',cookieJwtAuth,userController.delete);
-router.post('/login',userController.login);
-// router.get('/checkemail/:email',userController.checkEmail);
+router.get('/admin/view',cookieJwtAuth,roleAuth(['admin']),userController.findAll);
+router.delete('/admin/delete/:username', cookieJwtAuth,roleAuth(['admin']), userController.delete);
+router.get('/checkemail', userController.checkEmail);
+router.get('/checkusername', userController.checkUsername);
+router.post('/register', userController.create);
+router.post('/login', userController.login);
+router.get('/:username', cookieJwtAuth, userController.findOne);
+router.patch('/update/credentials', cookieJwtAuth, userController.updateUser);
+router.patch('/admin/edit/role',cookieJwtAuth,roleAuth(['admin']),userController.updateRole);
+
+
 module.exports = router;

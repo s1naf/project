@@ -1,0 +1,40 @@
+
+ <div class="card">
+  <form class="form" [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+    <div class="title">Update Profile</div>
+
+    <div class="input-group">
+      <input type="text" placeholder="username" name="username" formControlName="username" class="input">
+      <span *ngIf="updateUserForm.get('username')?.invalid && updateUserForm.get('username')?.touched" class="error">Username is required!</span>
+    </div>
+
+    <div class="input-group">
+      <input type="text" placeholder="Email" name="email" formControlName="email" class="input">
+      <span *ngIf="updateUserForm.get('email')?.invalid && updateUserForm.get('email')?.touched" class="error">Email is required!</span>
+    </div>
+
+    <div class="input-group">
+      <input type="text" placeholder="First Name" name="firstname" formControlName="firstname" class="input">
+    </div>
+
+    <div class="input-group">
+      <input type="text" placeholder="Last Name" name="lastname" formControlName="lastname" class="input">
+    </div>
+
+    <div class="input-group">
+      <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
+    </div>
+
+    <button class="button" [disabled]="updateUserForm.invalid" type="submit">Update</button>
+
+    <div *ngIf="usernameExists" class="alert alert-danger">
+      <strong>{{errorMessage}}</strong> 
+    </div>
+    <div *ngIf="emailExists" class="alert alert-danger">
+      <strong>{{errorMessage}}</strong> 
+    </div>
+    <div *ngIf="updateMessage" class="alert alert-info">
+      {{ updateMessage }}
+    </div>
+  </form>
+</div>

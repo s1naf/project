@@ -9,7 +9,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-latest-posts',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule,RouterLink,MatPaginator],
   templateUrl: './latest-posts.component.html',
   styleUrl: './latest-posts.component.css'
 })
@@ -25,17 +25,27 @@ export class LatestPostsComponent {
 
 
   ngOnInit() {
-    this.postService.getLatestPosts().subscribe({
-      next: (response:{data:PostForHomePage[]}) => {
-        this.latestPosts = response.data;
-        console.log("Received posts", response);
-        
-      },
-      error: (error) => {
-        console.log("Error", error);
-      }
-    });
+    this.loadPosts(this.currentPage,this.pageSize);  
   }
+  
+  loadPosts(page:number,limit:number){
+  this.postService.getLatestPosts(page,limit).subscribe({
+    next: (response:{data:PostForHomePage[], totalItems:number, totalPages:number}) => {
+      this.latestPosts = response.data;
+      this.totalPages = response.totalPages;
+      this.currentPage = page;
+      this.totalItems = response.totalItems;
+      console.log("Received posts", response);
+      
+    },
+    error: (error) => {
+      console.log("Error", error);
+    }
+  });
+}
 
 
+onPageChange(event: PageEvent) {
+  this.loadPosts(event.pageIndex + 1, event.pageSize);
+}
 }

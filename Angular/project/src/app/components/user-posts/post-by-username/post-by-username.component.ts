@@ -4,7 +4,6 @@ import { UserService } from '../../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';//importing ActivatedRoute to get the username from the URL
 import { PostForHomePage } from '../../../shared/interfaces/posts-from-backend';
 import { CommonModule } from '@angular/common';
-import { LoggedInUser } from '../../../shared/interfaces/login-user';
 import { FormGroup,FormControl,ReactiveFormsModule,Validators } from '@angular/forms';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator'; 
 @Component({
@@ -14,7 +13,7 @@ import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
   templateUrl: './post-by-username.component.html',
   styleUrl: './post-by-username.component.css'
 })
-export class PostByUsernameComponent {
+export class PostByUsernameComponent  {
 
   postService = inject(PostService);
   userService = inject(UserService);

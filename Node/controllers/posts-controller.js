@@ -4,18 +4,40 @@ exports.findAll = async(req,res) =>{
     console.log("Find all users questions");
 
     try{
-        const result = await User.find({},{username:1,posts:1, _id:0})
-        .skip(res.pagination.startIndex).limit(res.pagination.limit);
-        res.json({
-            status:true,
-            data:result,
-            totalPages: res.pagination.totalPages,
-            currentPage: res.pagination.currentPage,
-            totalItems: res.pagination.totalItems
-        });
 
-    }catch(err){
-        res.json({status:false,data:err});
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const startIndex = (page - 1) * limit;
+
+    console.log(`Page: ${page}, Limit: ${limit}, StartIndex: ${startIndex}`);
+
+    const result = await User.aggregate([
+        { $unwind: "$posts" },
+        { $project: {username:1,content:"$posts.content",date:"$posts.date",_id:"$posts._id"} },
+        { $skip: startIndex },
+        { $limit: limit }
+      ]);
+  
+      console.log("Aggregated result:", result);
+  
+      // Υπολογίζει το συνολικό αριθμό των posts
+      const totalItems = await User.aggregate([
+        { $unwind: "$posts" },
+        { $count: "total" }
+      ]);
+  
+      console.log("Total items:", totalItems);
+  
+      res.json({
+        status: true,
+        data: result,
+        totalPages: Math.ceil(totalItems[0].total / limit),
+        currentPage: page,
+        totalItems: totalItems[0].total
+      });
+    } catch (err) {
+      console.log("Error:", err);
+      res.json({ status: false, data: err });
     }
 }
 
@@ -132,12 +154,22 @@ exports.findLatestPosts = async(req,res) =>{
     console.log("Find latest posts");
 
     try{
+        const total = await User.countDocuments({ "posts.0": { $exists: true } });
         const result = await User.aggregate([
             { $match: { "posts.0": { $exists: true } } },
-            { $project: { username: 1, posts: { $slice: ["$posts", -1] }, _id: 0 } }
+            { $project: { username: 1, posts: { $slice: ["$posts", -1] }, _id: 0 } },
+            { $skip: res.pagination.startIndex },
+            { $limit: res.pagination.limit }
         ]);
         console.log("Query result:", result); 
-        res.json({status:true,data:result});
+        res.json({
+            status: true,
+            data: result,
+            totalPages: Math.ceil(total / res.pagination.limit),
+            currentPage: res.pagination.currentPage,
+            totalItems: total    
+        });
+
     }catch(err){
         console.log("Error:", err);
         res.json({status:false,data:err});

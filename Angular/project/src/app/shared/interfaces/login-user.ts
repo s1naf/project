@@ -7,5 +7,6 @@ export interface LoggedInUser{
     username: string,
     id: string,
     role: string,
+    email: string
     
 }

@@ -3,28 +3,6 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
 
-// let regionSchema = new Schema({
-//     country : {type:String},
-//     city : {type:String}
-// }, {_id:false})
-
-// let ageSchema = new Schema({
-//     day : {type:Number},
-//     month : {type:Number},
-//     year : {type:Number}
-// }, {_id:false})
-
-// let choicesQandASchema = new Schema({
-//     questions:{type:String},
-//     answers:{type:String},
-//     date:{type:Date,default:Date.now}
-// })
-
-// let savedAnswersSchema = new Schema({
-//     answers:[String],
-//     date:{type:Date,default:Date.now}
-// })
-
 let postSchema = new Schema({
     content: { type: String, required: true },
     date: { type: Date, default: Date.now }
@@ -86,11 +64,6 @@ let userSchema = new Schema({
         unique:false,
         trim:true
     },
-    // na ginei sinxoneusei answers kai choices h na ginei apo [] se {key:value}({question:answer}) kai gia ka8e choice tha prepei na exei to Question ena _id:true gia na ginete modify to antistixo answer tou. 
-    // answers : { type : [savedAnswersSchema],null:true},
-    // choices:  {type:[choicesQandASchema],null:true},
-
-    // choicesQandA: {te:[choicesQandASchema],null:true},
 
     posts:{
         type: [postSchema],

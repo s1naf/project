@@ -1,11 +1,9 @@
-import { inject, Injectable,signal,effect, ɵLocaleDataIndex } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { Post } from '../interfaces/post';
-import {jwtDecode} from 'jwt-decode';
-import { LoggedInUser } from '../interfaces/login-user';
 import { UserService } from './user.service';
-import { Observable } from 'rxjs';
+import { PostForHomePage } from '../interfaces/posts-from-backend';
 
 
 const API_URL=`${environment.apiURL}/api/posts`
@@ -17,57 +15,6 @@ const API_URL=`${environment.apiURL}/api/posts`
 export class PostService {
   http:HttpClient = inject(HttpClient)
   userService:UserService = inject(UserService)
-
-  // usersPosts = signal<PostsFromBackend[] | null>(null)
-
-
-  // loadPosts() {
-  //   this.getLatestPosts().subscribe({
-  //     next: (postsForView) => {
-        
-  //       if (postsForView && postsForView.data) {
-  //         this.usersPosts.set({
-  //           username:
-  //         })
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error("Error loading posts", error);
-  //     }
-  //   });
-      
-    
-  // }
-
-  // constructor(){
-    // const postsForView = this.getLatestPosts() as unknown as PostsFromBackend;
-    // if(postsForView){
-    //   this.usersPosts.set({
-    //     username:postsForView.username,
-    //     posts:postsForView.posts
-    //   })
-    // }
-
-
-    // effect(()=>{
-    //   if(this.usersPosts()){
-    //     console.log("Refresh Posts action",this.usersPosts())
-    //   }else{
-    //     console.log("No posts yet!")
-    //   }
-    // })
-  //   this.loadPosts();
-
-  //   effect(() => {
-  //     if (this.usersPosts()) {
-  //       console.log("Refresh Posts action", this.usersPosts());
-  //     } else {
-  //       console.log("No posts yet!");
-  //     }
-  //   });
-  // }
-
-
   
 
   registerPost(post:Post){
@@ -77,13 +24,13 @@ export class PostService {
   }
   getPosts(page: number = 1, limit: number = 10){
     const params = new HttpParams().set('page', page.toString()).set('limit', limit.toString());
-    return this.http.get<{data:[]}>(`${API_URL}/`,{params})     
+    return this.http.get<{data:PostForHomePage[],totalItems:number,totalPages:number}>(`${API_URL}/`,{params})     
   }
 
   
   getLatestPosts(page: number = 1, limit: number = 10) {
     const params = new HttpParams().set('page', page.toString()).set('limit', limit.toString());
-    return this.http.get<{data:[]}>(`${API_URL}/latest`,{params})
+    return this.http.get<{data:PostForHomePage[],totalItems:number,totalPages:number}>(`${API_URL}/latest`,{params})
   }
 
   getPostsByUsername(username:string,page: number = 1, limit: number = 10){
