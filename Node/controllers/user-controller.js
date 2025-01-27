@@ -66,28 +66,7 @@ exports.create = async(req,res) =>{
 }
 
 
-// exports.update = async(req,res) =>{
-//     const username = req.params.username
-    
-//You can update filds in db who is unique like username and password and email TODO make recover password
-//     const updateUser = {
-//         firstname:  req.body.firstname,
-//         lastname: req.body.lastname,
-//     };
 
-//     try{
-//         const result = await User.findOneAndUpdate(
-//             {username:username},
-//             updateUser
-//         )
-        
-//         res.json({status:true,data:result});
-//         console.log("Update user with username", username);
-//     }catch (err){
-//         res.json({status:false,data:err});
-//         console.log("There was an error");
-//     }
-// }
 
 exports.delete = async (req, res) => {
     const username = req.params.username;

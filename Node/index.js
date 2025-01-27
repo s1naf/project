@@ -10,7 +10,6 @@ const cookieParser = require('cookie-parser');
 
 app.use(helmet());
 app.use(cookieParser());
-// app.use(cors());
 app.use(cors({
     origin: 'http://localhost:4200',
     credentials: true,
@@ -19,15 +18,6 @@ app.use(cors({
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger');
-
-// const rateLimit = require('express-rate-limit');
-
-// const limiter = rateLimit({
-//     windowMs: 15 * 60 * 1000, // 15 λεπτά
-//     max: 100 // περιορισμός σε 100 αιτήσεις ανά 15 λεπτά
-// });
-
-// app.use(limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -46,8 +36,5 @@ app.use('/api/posts',postRoutes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument.options));
 
-// app.listen(port,()=>{
-//     console.log("Server is up");
-// })
 
 module.exports = app;

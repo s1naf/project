@@ -14,6 +14,5 @@ router.post('/login', userController.login);
 router.get('/:username', cookieJwtAuth, userController.findOne);
 router.patch('/update/credentials', cookieJwtAuth, userController.updateUser);
 router.patch('/admin/edit/role',cookieJwtAuth,roleAuth(['admin']),userController.updateRole);
-// router.patch('/update/password',cookieJwtAuth,userController.updatePassword);
 
 module.exports = router;
