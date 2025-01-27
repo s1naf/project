@@ -17,6 +17,8 @@ app.use(cors({
     optionsSuccessStatus: 200
 }));
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger');
 
 // const rateLimit = require('express-rate-limit');
 
@@ -42,6 +44,10 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/users',userRoutes);
 app.use('/api/posts',postRoutes);
 
-app.listen(port,()=>{
-    console.log("Server is up");
-})
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument.options));
+
+// app.listen(port,()=>{
+//     console.log("Server is up");
+// })
+
+module.exports = app;

@@ -1,0 +1,6 @@
+{
+  message: 'Find all users',
+  level: 'info',
+  label: 'winston custom format',
+  timestamp: '17-01-2025 16:26:51'
+}

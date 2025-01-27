@@ -42,15 +42,14 @@ export class LoginComponent {
           const decodedToken = jwtDecode(accessToken) as unknown as LoggedInUser;
           console.log("Decoded token",decodedToken)
           
-          
 
             this.userService.user.set({
               username:decodedToken.username,
               id:decodedToken.id,
               role:decodedToken.role,
               email:decodedToken.email
-
             })
+            
             
           console.log("User logged in",decodedToken.username)
           console.log("User id",decodedToken.id)

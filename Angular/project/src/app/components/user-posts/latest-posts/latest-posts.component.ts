@@ -4,20 +4,23 @@ import { PostForHomePage } from '../../../shared/interfaces/posts-from-backend';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { UserService } from '../../../shared/services/user.service';
+
 
 
 @Component({
   selector: 'app-latest-posts',
   standalone: true,
-  imports: [CommonModule,RouterLink,MatPaginator],
+  imports: [CommonModule,MatPaginator,RouterLink],
   templateUrl: './latest-posts.component.html',
   styleUrl: './latest-posts.component.css'
 })
 export class LatestPostsComponent {
 
+  
   postService = inject(PostService);
   latestPosts:PostForHomePage[] = [];
-  
+  userService = inject(UserService);
   currentPage = 1;
   totalPages = 1;
   pageSize = 10;
@@ -44,8 +47,8 @@ export class LatestPostsComponent {
   });
 }
 
-
 onPageChange(event: PageEvent) {
   this.loadPosts(event.pageIndex + 1, event.pageSize);
 }
+
 }

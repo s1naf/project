@@ -1,4 +1,4 @@
-
+const logger = require('../logger/logger');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user-model')
@@ -8,9 +8,10 @@ exports.findAll = async(req,res) =>{
 
     try{
         const result = await User.find({},{username:1,_id:0,role:1});
-        
+        // logger.info("Find all users");
         res.json({status:true, data:result});
     }catch(err){
+        // logger.error("There was an error", err);
         res.json({status:false,data:err});
         
     }
@@ -129,7 +130,7 @@ try{
     console.log("Creating token");
     console.log('JWT_SECRET:', process.env.JWT_SECRET);
     //Signature
-    const token = jwt.sign({username:user.username,id:user._id,role:user.role,email:user.email   },process.env.JWT_SECRET,{expiresIn:"1h"});
+    const token = jwt.sign({username:user.username,id:user._id,role:user.role,email:user.email   },process.env.JWT_SECRET,{expiresIn:800});
     console.log('Login successful for user:', username);
     console.log("Token created");
     
@@ -180,58 +181,61 @@ exports.checkUsername = async (req, res) => {
     }
   };
 
-
-exports.updateUser = async (req, res) => {
-
-const userId = req.body.id;
-  const { username, email, firstname, lastname, password } = req.body;
+  exports.updateUser = async (req, res) => {
+  
+  
+    const userId = req.body.id;
+    const { username, email, firstname, lastname, newPassword } = req.body;
 
   try {
-    const updateData = {};
-
-    if (username) {
-      const existingUser = await User.findOne({ username });
-      if (existingUser) {
-        return res.status(400).json({ status: false, data: "Username already exists" });
-      }
-      updateData.username = username;
-    }
-
-    if (email) {
-      const existingEmail = await User.findOne({ email });
-      if (existingEmail) {
-        return res.status(400).json({ status: false, data: "Email already exists" });
-      }
-      updateData.email = email;
-    }
-
-    if (firstname) {
-      updateData.firstname = firstname;
-    }
-
-    if (lastname) {
-      updateData.lastname = lastname;
-    }
-
-    if (password) {
-      updateData.password = await bcrypt.hash(password, 10);
-    }
-
-    console.log("Updating user with ID:", userId, "with data:", updateData);
-    const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
-    if (!updatedUser) {
-      console.log("User not found with ID:", userId);
+    console.log("Updating user with id:", userId);
+    const existingUser = await User.findById(userId );
+    console.log("User found:", existingUser);
+    if (!existingUser) {
       return res.status(404).json({ status: false, data: "User not found" });
     }
 
+    if (username) {
+      const usernameExists = await User.findOne({ username });
+      if (usernameExists && usernameExists.id !== userId) {
+        return res.status(400).json({ status: false, data: "Username already exists" });
+      }
+      existingUser.username = username;
+      console.log("Username updated",existingUser.username);
+    }
+
+    if (email) {
+      const emailExists = await User.findOne({ email });
+      if (emailExists && emailExists.id !== userId) {
+        return res.status(400).json({ status: false, data: "Email already exists" });
+      }
+      existingUser.email = email;
+      console.log("Email updated",existingUser.email);
+    }
+
+    if (firstname) {
+      existingUser.firstname = firstname;
+      console.log("Firstname updated",existingUser.firstname);
+    }
+
+    if (lastname) {
+      existingUser.lastname = lastname;
+      console.log("Lastname updated",existingUser.lastname);
+    }
+
+    if (newPassword) {
+      existingUser.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    const updatedUser = await existingUser.save();
     console.log("User updated successfully:", updatedUser);
     res.json({ status: true, data: updatedUser });
-  } catch (err) {
-    console.log("There was an error updating the user:", err);
-    res.status(500).json({ status: false, data: err });
-  }
-};
 
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ status: false, data: "Internal server error" });
+    }
+  };
 exports.updateRole = async (req, res) => {
     const username = req.body.username;
     const role = req.body.role;
@@ -244,3 +248,4 @@ exports.updateRole = async (req, res) => {
         res.status(500).json({ status: false, data: err });
     }
 }
+

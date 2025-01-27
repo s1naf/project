@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component,effect,inject } from '@angular/core';
 import { PostService } from '../../../shared/services/user-post.service';
 import { UserService } from '../../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';//importing ActivatedRoute to get the username from the URL
@@ -30,16 +30,25 @@ export class PostByUsernameComponent  {
   username = '';
 
 
-    ngOnInit() {
-      this.route.params.subscribe((params) => {
-        this.username = params['username'];
-        const user = this.userService.user();
-        if (user?.username === this.username){
-          this.isCurrentUser = true;
-        }
-        this.loadPosts(this.currentPage,this.pageSize);
-      });
+
+  ngOnInit(){
+      this.route.paramMap.subscribe(params => {
+      this.username = params.get('username') || '';
+      this.checkCurrentUser();
+      this.loadPosts(this.currentPage, this.pageSize);
+    });
+  }
+  
+
+  checkCurrentUser(): void {
+    const user = this.userService.user();
+    if (user?.username === this.username) {
+      this.isCurrentUser = true;
+    } else {
+      this.isCurrentUser = false;
     }
+  }
+
 
         loadPosts(page: number, limit: number) {
           this.postService.getPostsByUsername(this.username,page,limit).subscribe({
@@ -60,7 +69,6 @@ export class PostByUsernameComponent  {
     });
 
     updatePost(postId:string){
-      // const contentToBeUpdate = this.updatePostForm.get('content')?.value || '';
       if (this.updatePostForm.invalid) {
         return;
       }
@@ -103,5 +111,6 @@ export class PostByUsernameComponent  {
 onPageChange(event: PageEvent) {
   this.loadPosts(event.pageIndex + 1, event.pageSize);
 }
+
 
 }

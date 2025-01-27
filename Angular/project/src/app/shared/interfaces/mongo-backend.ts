@@ -13,7 +13,7 @@ export interface UserView{
     lastname: string,
     email:  string,
     password: string,
-    age: number,
+    
 }
 
 export interface Usernames{

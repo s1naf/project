@@ -7,6 +7,9 @@ exports.findAll = async(req,res) =>{
 
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
+    if (limit === 0) {
+        limit = 10; // Προεπιλεγμένη τιμή αν το limit είναι 0
+      }
     const startIndex = (page - 1) * limit;
 
     console.log(`Page: ${page}, Limit: ${limit}, StartIndex: ${startIndex}`);
@@ -27,13 +30,14 @@ exports.findAll = async(req,res) =>{
       ]);
   
       console.log("Total items:", totalItems);
-  
+      const total = totalItems.length > 0 ? totalItems[0].total : 0;
+
       res.json({
         status: true,
         data: result,
-        totalPages: Math.ceil(totalItems[0].total / limit),
+        totalPages: Math.ceil(total / limit),
         currentPage: page,
-        totalItems: totalItems[0].total
+        totalItems: total
       });
     } catch (err) {
       console.log("Error:", err);

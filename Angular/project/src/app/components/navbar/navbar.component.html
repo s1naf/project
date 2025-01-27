@@ -4,17 +4,17 @@
             <div>
                 <a class="title navbar-brand" routerLink="/home">Home</a>
             </div>
-        @for (entry of navMenu; track entry){
-            <a 
+            <div *ngFor="let entry of navMenu; trackBy: trackByNavMenu">
+                <a 
                 class=" navbar-brand " 
                 [routerLink] = "entry.routerLink"
             >{{entry.text}}</a>
-        }
+            </div>
     </div>
         <div> 
-            @if(user()){
-                <a routerLink="/profile/{{user()?.username}}" class="align-items-center d-flex" style="text-decoration: none;">
-                   {{user()?.username}}
+            @if(userService.user()){
+                <a routerLink="/profile/{{userService.user()?.username}}" class="align-items-center d-flex" style="text-decoration: none;">
+                   {{userService.user()?.username}}
                     <mat-icon role="button" (click)="logout()">logout</mat-icon>
                 </a>
             }@else {

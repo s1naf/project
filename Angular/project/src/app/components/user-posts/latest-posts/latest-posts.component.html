@@ -1,9 +1,9 @@
 <div class="card">
   <label >Latest posts</label>
-    <div *ngFor="let user of latestPosts;">
-       <a routerLink="/posts/{{user.username}}" class="title" >{{user.username}}:</a>
-          <div *ngFor="let post of user.posts" class="post">
-            <h2>{{post.content}}</h2></div>
+    <div *ngFor="let user of latestPosts; ">
+      <a routerLink="/posts/{{user.username}}" class="title" >{{user.username}}:</a>
+      <div *ngFor="let post of user.posts;  " class="post">
+        <h2>{{post.content}}</h2></div>
           </div>
     <mat-paginator class="paginator"
       [length]="totalItems"

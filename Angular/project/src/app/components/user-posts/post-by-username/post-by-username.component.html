@@ -1,8 +1,7 @@
 <div class="card">
   <div *ngIf="isCurrentUser">
-    <div *ngFor="let user of postsByUsername">
-      
-      <div *ngFor="let post of user.posts">
+    <div *ngFor="let user of postsByUsername; ">
+      <div *ngFor="let post of user.posts;">      
         <h1>{{ user.username }}</h1>
         <h1>{{ post.content }}</h1>
         <p>{{post.date}}</p>

@@ -20,19 +20,26 @@
     <div class="input-group">
       <input type="text" placeholder="Last Name" name="lastname" formControlName="lastname" class="input">
     </div>
-
+ 
     <div class="input-group">
       <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
+    </div> 
+
+    <div class="input-group">
+      <input type="password" placeholder="New Password" name="newPassword" formControlName="newPassword" class="input">
+      <span *ngIf="updateUserForm.get('newPassword')?.invalid && updateUserForm.get('newPassword')?.touched" class="error">Password is required!</span>
     </div>
+
+
+    <div class="input-group">
+      <input type="password" placeholder="Confirm Password" name="confirmPassword" formControlName="confirmPassword" class="input">
+      <span *ngIf="updateUserForm.get('confirmPassword')?.invalid && updateUserForm.get('confirmPassword')?.touched" class="error">Passwords do not match!</span>
+    </div>
+    
 
     <button class="button" [disabled]="updateUserForm.invalid" type="submit">Update</button>
 
-    <div *ngIf="usernameExists" class="alert alert-danger">
-      <strong>{{errorMessage}}</strong> 
-    </div>
-    <div *ngIf="emailExists" class="alert alert-danger">
-      <strong>{{errorMessage}}</strong> 
-    </div>
+    
     <div *ngIf="updateMessage" class="alert alert-info">
       {{ updateMessage }}
     </div>

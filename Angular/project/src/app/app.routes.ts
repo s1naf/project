@@ -20,6 +20,6 @@ export const routes: Routes = [
     {path: 'admin/view',canActivate:[authGuard,authRoleGuard], component:ViewPostsComponent},
     {path: 'home', canActivate:[authGuard], component:LatestPostsComponent},
     {path: 'posts/:username',canActivate:[authGuard] ,component:PostByUsernameComponent},
-    { path: 'profile/:username', canActivate: [authGuard], component: UserUpdateComponent },
-    { path: 'admin/users', canActivate: [authGuard, authRoleGuard],component:UsersViewComponent  }
+    {path: 'profile/:username', canActivate: [authGuard], component: UserUpdateComponent},
+    {path: 'admin/users', canActivate: [authGuard, authRoleGuard],component:UsersViewComponent}
 ];

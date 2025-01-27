@@ -1,42 +1,58 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, Signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../shared/services/user.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { NavList } from '../../shared/interfaces/menu-list';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink,MatIconModule],
+  imports: [RouterLink,MatIconModule,CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   userService = inject(UserService) 
-  user = this.userService.user
-
   navMenu: NavList[]= []
-  ngOnInit(){
-    this.specificNavMenu()
+  userSubscription: Subscription | undefined;
+  route = inject(ActivatedRoute);
+  
+
+  
+   
+  constructor() {
+    effect(() => {
+      const user = this.userService.user();
+      console.log("users pass from effect",user)
+      if (user) {
+        const username = user.username;
+        this.specificNavMenu(user.role, username);
+      }
+    });
   }
 
-  specificNavMenu(){
-    if(this.user()?.role==="admin"){
+  
+  
+ 
+  specificNavMenu(role:string,username:string){
+    this.navMenu = [];
+    if(role==="admin"){
       this.navMenu.push(
         {text:"Admin View",routerLink:"admin/users"},
         {text:"Admin Posts",routerLink:"admin/view"},
-        {text:"My posts",routerLink:`posts/${this.user()?.username}`},
+        {text:"My posts",routerLink:`posts/${username}`},
         {text:"Create Post",routerLink:"post/create"},
         {text:"Latest Posts",routerLink:"home"}
     )}
     else{
         this.navMenu.push(
-        {text:"My posts",routerLink:`posts/${this.user()?.username}`},
+        {text:"My posts",routerLink:`posts/${username}`},
         {text:"Create Post",routerLink:"post/create"},
         {text:"Latest Posts",routerLink:"home"},
-        {text:"Profile",routerLink:`profile/${this.user()?.username}`}
-
-      
-      
+        {text:"Profile",routerLink:`profile/${username}`}
       )}
       
   }
@@ -47,5 +63,9 @@ export class NavbarComponent {
   logout(){
     this.userService.logoutUser()
   } 
+
+  trackByNavMenu(index: number, item: { text: string, routerLink: string }): string {
+    return item.routerLink; // Επιστρέφει το μοναδικό 'routerLink' του στοιχείου
+  }
   
 }
