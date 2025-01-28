@@ -44,12 +44,12 @@
         type="submit">
         Submit
         </button>
-  
-      <div *ngIf="usernameExists" class="alert alert-danger">
-        <strong>Error:</strong> Username already exists
-      </div>
-      <div *ngIf="emailExists" class="alert alert-danger">
-        <strong>Error:</strong> Email already exists
-      </div>
-    </form>
-  </div>
+
+    <div *ngIf="submissionSuccess" class="alert alert-success">
+      <strong>Success:</strong> User registered successfully!
+    </div>
+    <div *ngIf="submissionError" class="alert alert-danger">
+      {{this.errorMessage}}.
+    </div>
+  </form>
+</div>

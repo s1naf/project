@@ -31,9 +31,9 @@ updateUserForm = new FormGroup({
   email: new FormControl('', [Validators.required, Validators.email]),
   firstname: new FormControl('', Validators.required),
   lastname: new FormControl('', Validators.required),
-  password: new FormControl(''),
-  newPassword: new FormControl(''),
-  confirmPassword: new FormControl('')
+  password: new FormControl('',Validators.minLength(4)),
+  newPassword: new FormControl('',Validators.minLength(4)),
+  confirmPassword: new FormControl('',Validators.minLength(4))
 });
 
 
@@ -167,7 +167,8 @@ updateUser(id: string, updateData: any) {
     },
     error: (response) => {
       console.log("Error updating user", response);
-      this.updateMessage = 'Failed to update user.';
+
+      this.updateMessage = 'Failed to update user. '+ response.error.data;
     }
   });
 }

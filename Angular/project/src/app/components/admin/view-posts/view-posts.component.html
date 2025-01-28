@@ -4,7 +4,7 @@
     <h2>{{ post.content }}</h2>
     <p>{{ post.date }}</p>
     
-    <button (click)="deletePost(post._id)">Delete</button>
+    <button (click)="deletePost(post._id,post.username)">Delete</button>
 
   </div>
   <mat-paginator [length]="totalItems"

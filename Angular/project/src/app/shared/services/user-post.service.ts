@@ -47,6 +47,9 @@ export class PostService {
     const username = this.userService.user()?.username
     return this.http.delete<{data:string}>(`${API_URL}/delete/${username}`,{body:{_id}})
   }
+  adminDelete(_id:string,username:string){
+    return this.http.delete<{data:string}>(`${API_URL}/admin/delete/`,{body:{_id,username}})
+  }
   
 }
 

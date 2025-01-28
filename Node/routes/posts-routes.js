@@ -14,6 +14,7 @@ router.get('/:username',cookieJwtAuth,pagination(User),userPostController.findOn
 router.post('/:username/insert',cookieJwtAuth,userPostController.create);
 router.patch('/update/:username',cookieJwtAuth,userPostController.update);
 router.delete('/delete/:username',cookieJwtAuth,userPostController.delete);
+router.delete('/admin/delete',cookieJwtAuth,roleAuth(['admin']),userPostController.adminDelete);
 
 
 

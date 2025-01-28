@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { QuestionsComponent } from './components/posts/create-post.component';
+import { CreatePostComponent } from './components/posts/create-post.component';
 import { authGuard } from './shared/guards/auth.guard';
 import { authRoleGuard } from './shared/guards/auth-role.guard';
 import { ViewPostsComponent } from './components/admin/view-posts/view-posts.component';
@@ -16,7 +16,7 @@ export const routes: Routes = [
     {path:'register', component: UserRegistrationComponent },
     {path:'', redirectTo:'/home', pathMatch:'full'},
     {path: 'login', component:LoginComponent},
-    {path: 'post/create',canActivate:[authGuard], component:QuestionsComponent},
+    {path: 'post/create',canActivate:[authGuard], component:CreatePostComponent},
     {path: 'admin/view',canActivate:[authGuard,authRoleGuard], component:ViewPostsComponent},
     {path: 'home', canActivate:[authGuard], component:LatestPostsComponent},
     {path: 'posts/:username',canActivate:[authGuard] ,component:PostByUsernameComponent},

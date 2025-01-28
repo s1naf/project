@@ -39,8 +39,8 @@ export class ViewPostsComponent implements OnInit {
     });
   }
 
-  deletePost(_id: string) {
-    this.postService.deletePost(_id).subscribe({
+  deletePost(_id: string, username: string) {
+    this.postService.adminDelete(_id,username).subscribe({
       next: (response) => {
         console.log("success", response);
         this.postForView = this.postForView.filter(post => post._id !== _id);

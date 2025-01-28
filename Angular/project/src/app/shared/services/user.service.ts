@@ -55,7 +55,7 @@ export class UserService {
   }
 
   registerUser(newUser:User){
-    return this.http.post<{data:string}>(`${API_URL}/register`,newUser)
+    return this.http.post<{data:User}>(`${API_URL}/register`,newUser)
   }
 
   checkEmail(email:string){

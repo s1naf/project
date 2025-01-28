@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/interfaces/mongo-backend';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,8 +20,10 @@ import { NgIf } from '@angular/common';
 export class UserRegistrationComponent {
 
   userService = inject(UserService)
-  usernameExists: boolean = false;
-  emailExists: boolean = false;
+  submissionSuccess: boolean = false;
+  submissionError: boolean = false;
+  router = inject(Router);
+  errorMessage = '';
 
   form = new FormGroup({
     username: new FormControl('',Validators.required),
@@ -52,56 +55,7 @@ export class UserRegistrationComponent {
   }
 
 onSubmit() {
-  if (this.form.valid) {
-    const username = this.form.get('username')?.value;
-    const email = this.form.get('email')?.value;
-    if (username && email) {
-      this.checkUsername(username, email);
-    } else {
-      console.log("Username or email is invalid");
-    }
-  } else {
-    console.log("Form is invalid");
-  }
-}
-
-checkUsername(username: string, email: string) {
-  this.userService.checkUsername(username).subscribe({
-    next: (response) => {
-      console.log("Username check success", response);
-      if(response.data){
-        this.usernameExists = true;
-      this.checkEmail(email);
-      }else{
-        this.usernameExists = false;
-        console.log("Username already exists");
-      }
-    },
-    error: (response) => {
-      console.log("Error username exists", response);
-    }
-  });
-}
-
-checkEmail(email: string) {
-  this.userService.checkEmail(email).subscribe({
-    next: (response) => {
-      console.log("Email check success", response);
-      if(response.data){
-        this.emailExists = true;
-        this.registerUser();
-      }else{
-        this.emailExists = false;
-        console.log("Email already exists");
-      }
-    },
-    error: (response) => {
-      console.log("Error email exists", response);
-    }
-  });
-}
-
-registerUser() {
+ 
   const newUser: User = {
     username: this.form.get('username')?.value || '',
     firstname: this.form.get('firstname')?.value || '',
@@ -116,13 +70,17 @@ registerUser() {
   this.userService.registerUser(newUser).subscribe({
     next: (response) => {
       console.log("Registration success", response);
-      this.form.reset();
+      this.submissionSuccess = true;
+      // this.form.reset();
+      this.router.navigate(['/login']);
     },
     error: (response) => {
       console.log("Registration error", response);
+      this.submissionError = true;
+      this.errorMessage = response.error;
+
     }
   });
+
 }
-
-
 }

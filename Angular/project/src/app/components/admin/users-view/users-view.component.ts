@@ -9,7 +9,7 @@ import { AdminView } from '../../../shared/interfaces/admin-view';
   templateUrl: './users-view.component.html',
   styleUrl: './users-view.component.css'
 })
-export class UsersViewComponent {
+export class UsersViewComponent { 
   
   userService = inject(UserService);
   data:AdminView[] = [];

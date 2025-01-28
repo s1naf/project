@@ -152,6 +152,28 @@ exports.delete = async(req,res) => {
     }
 }
 
+exports.adminDelete = async(req,res) => {
+    const username = req.body.username;
+    const post_id = req.body._id;
+
+    console.log("Delete the post for user",username);
+
+    try{
+        const result = await User.updateOne(
+            {username:username},
+            {
+                $pull:{
+                    posts:{_id:post_id}
+                }
+            }
+        )
+        res.json({status:true,data:result})
+
+    }catch(err){
+        res.json({status:false,data:err})
+    }
+}
+
 
 
 exports.findLatestPosts = async(req,res) =>{

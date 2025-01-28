@@ -10,7 +10,7 @@ import { Post } from '../../shared/interfaces/post';
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.css'
 })
-export class QuestionsComponent {
+export class CreatePostComponent {
 
 usePostService = inject(PostService)
 router = inject(Router)
