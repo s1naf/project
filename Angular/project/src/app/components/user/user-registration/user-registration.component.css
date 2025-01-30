@@ -29,10 +29,11 @@
     margin-bottom: 0px;
   }
   
-  .title span {
+  .title a {
     color: var(--font-color-sub);
     font-weight: 600;
     font-size: 17px;
+    text-decoration: none;
   }
 
 

@@ -7,13 +7,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/interfaces/mongo-backend';
 import { NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router,RouterLink } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-user-registration',
   standalone: true,
-  imports: [MatInputModule,MatFormFieldModule,MatButtonModule,ReactiveFormsModule,MatSelectModule,NgIf],
+  imports: [MatInputModule,MatFormFieldModule,MatButtonModule,ReactiveFormsModule,MatSelectModule,NgIf,RouterLink],
   templateUrl: './user-registration.component.html',
   styleUrl: './user-registration.component.css'
 })

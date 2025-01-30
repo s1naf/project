@@ -23,11 +23,12 @@
  
     <div class="input-group">
       <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
+      <span *ngIf="updateUserForm.get('password')?.invalid && updateUserForm.get('password')?.touched" class="error">Password is invalid</span>
     </div> 
 
     <div class="input-group">
       <input type="password" placeholder="New Password" name="newPassword" formControlName="newPassword" class="input">
-      <span *ngIf="updateUserForm.get('newPassword')?.invalid && updateUserForm.get('newPassword')?.touched" class="error">Password is required!</span>
+      <span *ngIf="updateUserForm.get('newPassword')?.invalid && updateUserForm.get('newPassword')?.touched" class="error">Password is required and must be at least 4 characters!</span>
     </div>
 
 

@@ -1,6 +1,6 @@
  <div class="container">
     <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="title">Register,<br><span>sign up to continue</span></div>
+      <div class="title">Register,<br><a routerLink="/login">Already have an account?</a></div>
   
       <div class="input-group">
         <input type="text" placeholder="username" name="username" formControlName="username" class="input">
@@ -29,7 +29,7 @@
   
       <div class="input-group">
         <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
-        <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">Password is required!</span>
+        <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">Password is required and must be at least 4 characters!</span>
       </div>
   
       <div class="input-group">
