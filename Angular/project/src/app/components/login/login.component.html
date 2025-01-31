@@ -1,27 +1,23 @@
 <div class="container">
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="title">Welcome,<br><a routerLink="/register">or create an account</a></div>
     
-  <div class="form-group flex-column d-flex"> 
-    <label for="username">Username:</label>
-    <input type="text" placeholder="username" name="username" formControlName="username" class="input">
-  </div>
+    <label class="label">Username:</label>
+    <div class="form-group"> 
+      <input type="text" placeholder="username" name="username" formControlName="username" class="input">
+    </div>
 
-  <div class="form-group flex-column d-flex"> 
-    <label for="password">Password:</label>
-    <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
-  </div>
-    <button 
-      class="button"
-      [disabled]="form.invalid"
-      type="submit">
+    <label class="label">Password:</label>
+    <div class="form-group"> 
+      <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
+    </div>
+    
+    <button class="button" [disabled]="form.invalid" type="submit">
       Let`s go →
     </button>
 
-    @if (invalidLogin){
-      <div class="alert alert-danger">
-          <strong>Error:</strong> Invalid email or paswword
-      </div>
-  }
+    <div *ngIf="invalidLogin" class="alert alert-danger">
+      <strong>Error:</strong> Invalid email or password
+    </div>
   </form>
 </div>

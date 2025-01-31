@@ -5,10 +5,11 @@ import { LoggedInUser, LoginUser } from '../../shared/interfaces/login-user';
 import { RouterLink } from '@angular/router';
 import {jwtDecode} from 'jwt-decode'
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterLink],
+  imports: [ReactiveFormsModule,RouterLink,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

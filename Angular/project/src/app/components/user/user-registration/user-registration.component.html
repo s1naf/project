@@ -1,4 +1,4 @@
- <div class="container">
+ <!-- <div class="container">
     <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="title">Register,<br><a routerLink="/login">Already have an account?</a></div>
   
@@ -44,6 +44,66 @@
         type="submit">
         Submit
         </button>
+
+    <div *ngIf="submissionSuccess" class="alert alert-success">
+      <strong>Success:</strong> User registered successfully!
+    </div>
+    <div *ngIf="submissionError" class="alert alert-danger">
+      {{this.errorMessage}}.
+    </div>
+  </form>
+</div> -->
+
+<div class="container">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="title">Register,<br><a routerLink="/login">Already have an account?</a></div>
+
+    <div class="input-group">
+      <label class="label">Username:</label>
+      <input type="text" placeholder="username" name="username" formControlName="username" class="input">
+      <span *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">Username is required!</span>
+    </div>
+
+    <div class="input-group">
+      <label class="label">First Name:</label>
+      <input type="text" placeholder="First Name" name="firstname" formControlName="firstname" class="input">
+      <span *ngIf="form.get('firstname')?.invalid && form.get('firstname')?.touched" class="error">First Name is required!</span>
+    </div>
+
+    <div class="input-group">
+      <label class="label">Last Name:</label>
+      <input type="text" placeholder="Last Name" name="lastname" formControlName="lastname" class="input">
+      <span *ngIf="form.get('lastname')?.invalid && form.get('lastname')?.touched" class="error">Last Name is required!</span>
+    </div>
+
+    <div class="input-group">
+      <label class="label">Email:</label>
+      <input type="text" placeholder="Email" name="email" formControlName="email" class="input">
+      <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">Email is required!</span>
+    </div>
+
+    <div class="input-group">
+      <label class="label">Age:</label>
+      <input type="number" placeholder="Age" name="age" formControlName="age" class="input">
+      <span *ngIf="form.get('age')?.invalid && form.get('age')?.touched" class="error">Age is required!</span>
+    </div>
+
+    <div class="input-group">
+      <label class="label">Password:</label>
+      <input type="password" placeholder="Password" name="password" formControlName="password" class="input">
+      <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">Password is required and must be at least 4 characters!</span>
+    </div>
+
+    <div class="input-group">
+      <label class="label">Confirm Password:</label>
+      <input type="password" placeholder="Confirm password" name="confirmPassword" formControlName="confirmPassword" class="input">
+      <span *ngIf="form.get('confirmPassword')?.hasError('missMatch')" class="error">Passwords do not match</span>
+      <span *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched" class="error">Confirm password is required!</span>
+    </div>
+
+    <button class="button" [disabled]="form.invalid" type="submit">
+      Submit
+    </button>
 
     <div *ngIf="submissionSuccess" class="alert alert-success">
       <strong>Success:</strong> User registered successfully!

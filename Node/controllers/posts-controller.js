@@ -20,6 +20,8 @@ exports.findAll = async(req,res) =>{
         { $skip: startIndex },
         { $limit: limit }
       ]);
+
+   
   
       console.log("Aggregated result:", result);
   
@@ -61,7 +63,13 @@ exports.findOne = async(req,res) =>{
             return res.status(404).json({ status: false, data: 'User not found' });
         }
         const posts = user.posts.slice(res.pagination.startIndex,res.pagination.startIndex + res.pagination.limit);
-            console.log("Find posts for user",username)
+            console.log("Find posts for user",username ,"posts:",posts);
+
+    //     const formattedResult = posts.map(post => {
+    //         post.date = moment(post.date).format('DD/MM/YYYY HH:mm:ss');
+    //         console.log("Post date:", post.date);   
+    //         return post;
+    //   });
 
         res.json({
             status:true,
@@ -70,6 +78,7 @@ exports.findOne = async(req,res) =>{
             currentPage:res.pagination.currentPage,
             totalItems:user.posts.length});
     }catch(err){
+        console.log("Error:",err);
         res.json({status:false,data:err});
     }
 }

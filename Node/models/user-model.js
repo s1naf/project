@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 let postSchema = new Schema({
     content: { type: String, required: true },
-    date: { type: Date, default: Date.now }
+    date: { type: String, default: Date }
 });
 
 
@@ -79,5 +79,6 @@ let userSchema = new Schema({
 });
 
 userSchema.plugin(uniqueValidator);
+
 
 module.exports = mongoose.model('User',userSchema)

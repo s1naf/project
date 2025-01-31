@@ -17,7 +17,6 @@ export class PostByUsernameComponent  {
 
   postService = inject(PostService);
   userService = inject(UserService);
-
   route = inject(ActivatedRoute);
   postsByUsername: PostForHomePage[] = [];
   isCurrentUser:boolean = false;
@@ -28,7 +27,11 @@ export class PostByUsernameComponent  {
   pageSize = 10;
   totalItems = 0;
   username = '';
+  
 
+  updatePostForm = new FormGroup({
+    content: new FormControl('',Validators.required)
+  });
 
 
   ngOnInit(){
@@ -50,67 +53,71 @@ export class PostByUsernameComponent  {
   }
 
 
-        loadPosts(page: number, limit: number) {
-          this.postService.getPostsByUsername(this.username,page,limit).subscribe({
-            next: (response: { data: PostForHomePage[],totalItems:number,totalPages:number }) => {
-              this.postsByUsername = response.data;
-              this.totalPages = response.totalPages;
-              this.currentPage = page;
-              this.totalItems = response.totalItems;
-            },
-            error: (error) => {
-              console.log("Error", error);
-            }
-          });
-        }
-
-    updatePostForm = new FormGroup({
-      content: new FormControl('',Validators.required)
-    });
-
-    updatePost(postId:string){
-      if (this.updatePostForm.invalid) {
-        return;
+  loadPosts(page: number, limit: number) {
+    this.postService.getPostsByUsername(this.username,page,limit).subscribe({
+      next: (response: { data: PostForHomePage[],totalItems:number,totalPages:number }) => {
+        console.log("Success", response);
+        this.postsByUsername = response.data;
+        console.log(this.postsByUsername);
+        this.totalPages = response.totalPages;
+        this.currentPage = page;
+        this.totalItems = response.totalItems;
+      },
+      error: (error) => {
+        console.log("Error", error);
       }
-      const contentToBeUpdate = this.updatePostForm.controls.content.value!;
-      this.postService.updatePost(postId,contentToBeUpdate).subscribe({
-        next: (response) => {
-          console.log("success", response);
-          this.updatePostForm.reset();
-          this.postsByUsername = this.postsByUsername.map(user => {
-            user.posts = user.posts.map(post => {
-              if (post._id === postId){
-                post.content = contentToBeUpdate;
-              }
-              return post;
-            });
-            return user;
-          });
-        },
-        error: (error) => {
-          console.log("error", error);
-        }
-      });
+    });
+  }
+
+  updatePost(postId:string){
+
+    if (this.updatePostForm.invalid) {
+      return;
     }
 
-
-    deletePost(_id:string){
-      this.postService.deletePost(_id).subscribe({
-        next: (response) => {
-          console.log("success", response);
-          this.postsByUsername = this.postsByUsername.map(user => {
-            user.posts = user.posts.filter(post => post._id !== _id);
-            return user;})       
-       },
-        error: (error) => {
-          console.log("error", error);
-        }
+    const contentToBeUpdate = this.updatePostForm.controls.content.value!;
+    
+    this.postService.updatePost(postId,contentToBeUpdate).subscribe({
+      next: (response) => {
+        console.log("success", response);
+        this.updatePostForm.reset();
+        this.postsByUsername = this.postsByUsername.map(user => {
+          user.posts = user.posts.map(post => {
+            if (post._id === postId){
+              post.content = contentToBeUpdate;
+            }
+            return post;
+          });
+          return user;
+        });
+      },
+      error: (error) => {
+        console.log("error", error);
+      }
     });
+  }
+
+
+  deletePost(_id:string){
+    this.postService.deletePost(_id).subscribe({
+      next: (response) => {
+        console.log("success", response);
+        this.postsByUsername = this.postsByUsername.map(user => {
+          user.posts = user.posts.filter(post => post._id !== _id);
+          return user;})       
+      },
+      error: (error) => {
+        console.log("error", error);
+      }
+  });
 }
 
 onPageChange(event: PageEvent) {
   this.loadPosts(event.pageIndex + 1, event.pageSize);
 }
 
+formatDate(date: string) {
+  return new Date(date).toDateString();
 
+}
 }
