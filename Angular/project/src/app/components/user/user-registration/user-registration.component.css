@@ -7,14 +7,13 @@
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-size: 20px;
-  background: lightgrey;
+  background: rgba(192, 157, 210, 0.654);
   border: 2px solid #323232;
   width: 400px;
 }
 
 .form {
   padding: 20px;
-  background: lightgrey;
   flex-direction: column;
   gap: 20px;
 }

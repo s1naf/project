@@ -118,6 +118,5 @@ onPageChange(event: PageEvent) {
 
 formatDate(date: string) {
   return new Date(date).toDateString();
-
 }
 }
