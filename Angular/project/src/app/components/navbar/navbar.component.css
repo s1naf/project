@@ -1,7 +1,7 @@
 nav{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: flex-; */
     padding: 0 50px;
     height: 50px;
     background: lightgrey;
@@ -9,6 +9,7 @@ nav{
     box-shadow: 0 1px 1px #323232;
     white-space: nowrap;
     overflow: hidden;
+    position: fixed;
     /* z-index: auto; */
 }
 
@@ -23,7 +24,7 @@ nav{
 .container-fluid {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    /* align-items: flex-end; */
 }
 
 .navbar-brand {
@@ -31,3 +32,38 @@ nav{
     font-family: 'Arial', sans-serif; 
     margin-right: 20px; 
 }
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        /* align-items: flex-start; */
+        padding: 10px;
+    }
+
+    .container-fluid {
+        flex-direction: row;
+        /* align-items: center; */
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+/* .loginNav{
+    /* display: flex; */
+    /* align-items: baseline;     */
+    /* justify-content: flex-end;
+} */
+/* .loginNav a{
+    font-family: 'Arial', sans-serif; 
+    text-decoration: none;
+    align-items: baseline;
+    
+} */
+
+/* .loginNav {
+    display: flex;
+    justify-content: flex-end;
+} */
