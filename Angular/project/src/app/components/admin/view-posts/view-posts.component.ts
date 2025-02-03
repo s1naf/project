@@ -55,4 +55,8 @@ export class ViewPostsComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.loadPosts(event.pageIndex + 1, event.pageSize);
   }
+
+  formatDate(date: string) {
+    return new Date(date).toDateString();
+  }
 }

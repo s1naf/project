@@ -1,15 +1,17 @@
 <div class="card">
   <div *ngFor="let post of postForView">
-    <h1>{{ post.username }}</h1>
-    <h2>{{ post.content }}</h2>
-    <p>{{ post.date }}</p>
+    <h1 class="title">{{ post.username }}</h1>
+    <h2 class="post">{{ post.content }}</h2>
+    <p>{{ formatDate(post.date) }}</p>
     
-    <button (click)="deletePost(post._id,post.username)">Delete</button>
+    <button class="button" (click)="deletePost(post._id,post.username)">Delete</button>
 
   </div>
-  <mat-paginator [length]="totalItems"
-                 [pageSize]="pageSize"
-                 [pageSizeOptions]="[5, 10, 25, 100]"
-                 (page)="onPageChange($event)">
+  <mat-paginator
+    class="paginator"
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="onPageChange($event)">
   </mat-paginator>
 </div>
