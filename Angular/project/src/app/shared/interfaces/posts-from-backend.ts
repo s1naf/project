@@ -5,7 +5,7 @@ export interface Post{
 }
 
 
-export interface PostForHomePage {
+export interface UserPost {
     _id: string;
     content: any;
     date: any;

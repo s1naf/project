@@ -1,3 +1,3 @@
-export interface Post {
-    post : string;
-}
+// export interface Post {
+//     post : string;
+// }

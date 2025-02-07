@@ -2,7 +2,7 @@ import { Component,effect,inject } from '@angular/core';
 import { PostService } from '../../../shared/services/user-post.service';
 import { UserService } from '../../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';//importing ActivatedRoute to get the username from the URL
-import { PostForHomePage } from '../../../shared/interfaces/posts-from-backend';
+import { UserPost } from '../../../shared/interfaces/posts-from-backend';
 import { CommonModule } from '@angular/common';
 import { FormGroup,FormControl,ReactiveFormsModule,Validators } from '@angular/forms';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator'; 
@@ -18,7 +18,7 @@ export class PostByUsernameComponent  {
   postService = inject(PostService);
   userService = inject(UserService);
   route = inject(ActivatedRoute);
-  postsByUsername: PostForHomePage[] = [];
+  postsByUsername: UserPost[] = [];
   isCurrentUser:boolean = false;
   
 
@@ -55,7 +55,7 @@ export class PostByUsernameComponent  {
 
   loadPosts(page: number, limit: number) {
     this.postService.getPostsByUsername(this.username,page,limit).subscribe({
-      next: (response: { data: PostForHomePage[],totalItems:number,totalPages:number }) => {
+      next: (response: { data: UserPost[],totalItems:number,totalPages:number }) => {
         console.log("Success", response);
         this.postsByUsername = response.data;
         console.log(this.postsByUsername);

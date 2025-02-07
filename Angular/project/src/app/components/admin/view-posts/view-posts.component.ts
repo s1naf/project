@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../../shared/services/user-post.service';
-import { PostForHomePage } from '../../../shared/interfaces/posts-from-backend';
+import { UserPost } from '../../../shared/interfaces/posts-from-backend';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -14,7 +14,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 export class ViewPostsComponent implements OnInit {
 
   postService = inject(PostService);
-  postForView: PostForHomePage[] = [];
+  postForView: UserPost[] = [];
   currentPage = 1;
   totalPages = 1;
   pageSize = 10;
@@ -26,7 +26,7 @@ export class ViewPostsComponent implements OnInit {
 
   loadPosts(page: number, limit: number) {
     this.postService.getPosts(page, limit).subscribe({
-      next: (response: { data: PostForHomePage[], totalItems: number, totalPages: number }) => {
+      next: (response: { data: UserPost[], totalItems: number, totalPages: number }) => {
         this.postForView = response.data;
         this.totalPages = response.totalPages;
         this.currentPage = page;

@@ -2,6 +2,7 @@ import { Component,inject } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { NgFor } from '@angular/common';
 import { AdminView } from '../../../shared/interfaces/admin-view';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-users-view',
   standalone: true,
@@ -12,18 +13,15 @@ import { AdminView } from '../../../shared/interfaces/admin-view';
 export class UsersViewComponent { 
   
   userService = inject(UserService);
-  data:AdminView[] = [];
+  router = inject(Router);
+  adminUser:AdminView[] = [];
   errorMessage = "";
 
   ngOnInit() {
     this.userService.getUsers().subscribe({
       next:(response)=>{
-       this.data = response.data;
-       console.log("Usernames",this.data)
-      
-
-
-        
+       this.adminUser = response.data;
+       console.log("Usernames",this.adminUser)
       },
       error:(error)=>{
         console.log("Error",error)
@@ -33,30 +31,47 @@ export class UsersViewComponent {
   }
 
   changeRole(username:string,role:string,userRole:string){
-    if(role !== userRole){
-    this.userService.editRole(username,role).subscribe({
-      next:(response)=>{
-        const user = this.data.find(user => user.username === username);
-        if(user){
-          user.role = role;
+    const currentUser = this.userService.user();
+    
+    if (role !== userRole) {
+      this.userService.editRole(username, role).subscribe({
+        next: (response) => {
+          role = response.data.role;
+          if (currentUser?.username === username) {
+            this.userService.updateRole(role);
+          }
+          const newAdminUserList = this.adminUser.map(user => {
+            if (user.username === username) {
+              user.role = role;
+            }
+            return user;
+          });
+          
+          this.adminUser = newAdminUserList;
+          
+          this.errorMessage = "Role updated to " + role;
+          
+          if (username === this.userService.user()?.username && role !== 'admin') {
+            this.router.navigate(['/home']);
+          }
+
+        },
+
+        error: (error) => {
+          console.log("Error", error);
         }
-        console.log("Role updated",response.data)
-      },
-      error:(error)=>{
-        console.log("Error",error)
-      }
-    })
-  }else{
-    this.errorMessage = "Role is already set to "+role
+      });
+    } else {
+      this.errorMessage = "Role is already set to " + role;
+    }
   }
-  }
+  
 
   
   deleteUser(username:string){
     this.userService.deleteUser(username).subscribe({
       next:(response)=>{
-        this.data = this.data.filter(user => user.username !== username);
-
+        this.adminUser = this.adminUser.filter(user => user.username !== username);
         console.log("User deleted",response.data)
       },
       error:(error)=>{

@@ -1,7 +1,6 @@
 nav{
     display: flex;
     justify-content: space-between;
-    /* align-items: flex-; */
     padding: 0 50px;
     height: 50px;
     background: rgb(192, 157, 210);
@@ -22,7 +21,6 @@ nav{
 .container-fluid {
     display: flex;
     justify-content: flex-start;
-    /* align-items: flex-end; */
 }
 
 .navbar-brand {
@@ -34,13 +32,11 @@ nav{
 @media (max-width: 768px) {
     nav {
         flex-direction: row;
-        /* align-items: flex-start; */
         padding: 10px;
     }
 
     .container-fluid {
         flex-direction: row;
-        /* align-items: center; */
     }
 
     .navbar-brand {
@@ -48,20 +44,3 @@ nav{
         margin-bottom: 10px;
     }
 }
-
-/* .loginNav{
-    /* display: flex; */
-    /* align-items: baseline;     */
-    /* justify-content: flex-end;
-} */
-/* .loginNav a{
-    font-family: 'Arial', sans-serif; 
-    text-decoration: none;
-    align-items: baseline;
-    
-} */
-
-/* .loginNav {
-    display: flex;
-    justify-content: flex-end;
-} */

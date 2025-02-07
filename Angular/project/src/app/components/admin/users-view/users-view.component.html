@@ -1,9 +1,9 @@
 <div class="card">
     <h2>Users List</h2>
     <ul>
-      <li *ngFor="let user of data; ">
+      <li *ngFor="let user of adminUser; ">
         {{ user.username }} ({{ user.role }})
-        <button class="btn btn-danger" (click)="deleteUser(user.username)">Delete</button>
+        <button class="dangerbtn" (click)="deleteUser(user.username)">Delete</button>
        
         <div class="dropdown">
           <button class="dropbtn">Role</button>

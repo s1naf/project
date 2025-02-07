@@ -115,7 +115,7 @@ describe('For User Requests', () => {
                 email: 'updateduser@example.com',
                 firstname: 'Updated',
                 lastname: 'User',
-                password: 'newpassword'
+                newPassword: 'newpassword'
             });
         
         expect(res.statusCode).toBe(200);
@@ -129,7 +129,6 @@ describe('For User Requests', () => {
         // Compare the hashed password
         const passwordMatch = await bcrypt.compare('newpassword', res.body.data.password);
         expect(passwordMatch).toBe(true);
-
     });
 
     it('should delete a user', async () => {
@@ -207,7 +206,7 @@ describe('For Post Requests', () => {
         expect(res.statusCode).toBe(200);
         expect(res.body.status).toBeTruthy();
         expect(res.body.data).toBeTruthy();
-        expect(res.body.data).toBeInstanceOf(Object); // test if posts is an array
+        expect(res.body.data).toBeInstanceOf(Object);
         
     });
 
@@ -222,7 +221,7 @@ describe('For Post Requests', () => {
             });
         
         expect(res.statusCode).toBe(200);
-        expect(res.body.data).toBeInstanceOf(Object); // test if posts is an array
+        expect(res.body.data).toBeInstanceOf(Object);
         expect(res.body.data).toBeTruthy();
     });
 
@@ -249,89 +248,3 @@ describe('For Post Requests', () => {
         
     });
 });
-
-// const mongoose = require('mongoose');
-// const request = require('supertest');
-// const app = require('../index');
-// const userModel = require('../models/user-model');
-
-
-// beforeEach(async() => {
-//     await mongoose.connect(process.env.MONGODB_URI)
-//     .then(
-//         () => { console.log('Connected to MongoDB in testing') },
-//         err => { console.log('Failed to connect to MongoDB') });
-// });
-
-// afterEach(async() => {
-//     await mongoose.connection.close();
-// });
-
-
-
-
-
-// describe("User tests",()=>{
-//     it ('should create a new user', async() => {
-//         const res = await request(app)
-//         .post('/api/users/register')
-//         .send({
-//             username: 'tzaaaaa',
-//             firstname: 'New',
-//             lastname: 'User',
-//             email: 'tzaaaaa@jama.kk',
-//             password: 'password',
-//             age: '19',
-//         });
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body.status).toBeTruthy();
-//     });
-
-//     it ('should login a user', async() => {
-//         const res = await request(app)
-//         .post('/api/users/login')
-//         .send({
-//             username: 'tza',
-//             password: 'password'
-//         });
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body.status).toBeTruthy();
-//         expect(res.body.data).toBeTruthy();
-//         expect(res.body).toHaveProperty(['data']);
-//     });
-//     let token = {role:user.role,username:user.username,id:user._id,email:user.email};
-
-//     it ('update for specific user', async() => {
-//         const res = await request(app)
-//         .patch('/api/users/update/credentials')
-//         .send({
-//             id: user._id.toString(),
-//             username: 'updateduser',
-//             email: 'updateduser@example.com',
-//             firstname: 'Updated',
-//             lastname: 'User',
-//             password: 'newpassword'
-//         });
-    
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body.status).toBeTruthy();
-//         expect(res.body.data).toBeTruthy();
-//         expect(res.body.data.username).toBe('updateduser');
-//         expect(res.body.data.email).toBe('updateduser@example.com');
-//         expect(res.body.data.firstname).toBe('Updated');
-//         expect(res.body.data.lastname).toBe('User');
-//         expect(res.body.data.password).toBe('newpassword');
-        
-// });
-// });
-// describe("Admin tests",()=>{
-//     it ('should return all users for admin', async() => {
-//         const res = await request(app)
-//         .get('/api/users/admin/view');
-
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body.status).toBeTruthy();
-//         // expect(res.body.data).toBeInstanceOf(Array);
-//         expect(res.body.data.length).toBeGreaterThan(0);
-//     });
-// })

@@ -1,6 +1,6 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { User, UserView } from '../interfaces/mongo-backend';
 import { LoggedInUser, LoginUser } from '../interfaces/login-user';
 import { Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class UserService {
   
 
   user = signal<LoggedInUser | null>(null)
+  newRoleString: string = ' ';
 
     
 
@@ -30,20 +31,26 @@ export class UserService {
       if(accessToken){
         const decodedToken = jwtDecode(accessToken) as unknown as LoggedInUser;
         const mappedUsername = localStorage.getItem("username");
-
         
-        this.user.set({
-          username: mappedUsername || decodedToken.username,
-          id:decodedToken.id,
-          role:decodedToken.role,
-          email:decodedToken.email,
-        })
+        if(this.newRoleString){
+          const mappedRole = this.newRoleString;
+          console.log("Mapped role",mappedRole)
+          this.user.set({
+            username: mappedUsername || decodedToken.username,
+            id:decodedToken.id,
+            role: mappedRole,
+            email:decodedToken.email,
+          })
+        }else{
+          this.user.set({
+            username: mappedUsername || decodedToken.username,
+            id:decodedToken.id,
+            role: decodedToken.role,
+            email:decodedToken.email,
+          })
+        }
     }
-
-
     
-    
-
     effect(()=>{ 
       if (this.user()){
         console.log("User logged in: ", this.user()?.username);          
@@ -82,11 +89,11 @@ export class UserService {
     return this.http.get<{data:AdminView[]}>(`${API_URL}/admin/view`)
   }
   editRole(username:string,role:string){
-    return this.http.patch<{data:User}>(`${API_URL}/admin/edit/role`,{username,role})
+    return this.http.patch<{data:AdminView}>(`${API_URL}/admin/edit/role`,{username,role})
   }
 
   deleteUser(username:string){
-    return this.http.delete<{data:User}>(`${API_URL}/admin/delete/${username}`)
+    return this.http.delete<{data:AdminView}>(`${API_URL}/admin/delete/${username}`)
   }
 
 
@@ -105,6 +112,17 @@ updateUsername(newUsername: string) {
     this.user.set({
       ...user,
       username: newUsername
+    });
+  }
+}
+
+updateRole(newRole: string) {
+  this.newRoleString = newRole;
+  const user = this.user();
+  if (user) {
+    this.user.set({
+      ...user,
+      role: newRole
     });
   }
 }

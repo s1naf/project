@@ -15,7 +15,3 @@ export interface UserView{
     password: string,
     
 }
-
-export interface Usernames{
-    usernames: string[]
-}

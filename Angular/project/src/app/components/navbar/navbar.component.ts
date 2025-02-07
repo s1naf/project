@@ -1,7 +1,7 @@
 import { Component, effect, inject, Signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../shared/services/user.service';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NavList } from '../../shared/interfaces/menu-list';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -35,7 +35,6 @@ export class NavbarComponent {
   }
 
   
-  
  
   specificNavMenu(role:string,username:string){
     this.navMenu = [];
@@ -65,7 +64,7 @@ export class NavbarComponent {
   } 
 
   trackByNavMenu(index: number, item: { text: string, routerLink: string }): string {
-    return item.routerLink; // Επιστρέφει το μοναδικό 'routerLink' του στοιχείου
+    return item.routerLink; 
   }
   
 }

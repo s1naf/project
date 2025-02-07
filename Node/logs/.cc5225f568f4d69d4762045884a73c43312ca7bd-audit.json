@@ -9,6 +9,21 @@
             "date": 1738430538257,
             "name": "logs\\rotate-01-02-2025.log",
             "hash": "205a6e48ec682df8ea1ac97366f94c592c392a4cc8715158797fa32786a3d9ac"
+        },
+        {
+            "date": 1738586888484,
+            "name": "logs\\rotate-03-02-2025.log",
+            "hash": "c2589138b4c7467b09b52c332c6cf65dcf7a3c52aceaefee5db6e2140a4742d2"
+        },
+        {
+            "date": 1738777997924,
+            "name": "logs\\rotate-05-02-2025.log",
+            "hash": "f44d418b206cd395884f59c6bda0276f3a38c8e5815bd6f61566ea19978db46d"
+        },
+        {
+            "date": 1738950307238,
+            "name": "logs\\rotate-07-02-2025.log",
+            "hash": "0d86e0a039692ce5d603082367a4472f267e9eb978aa8b8dc2750c0de6ee34fe"
         }
     ],
     "hashType": "sha256"

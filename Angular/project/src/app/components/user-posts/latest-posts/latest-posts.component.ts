@@ -1,6 +1,6 @@
 import { Component,inject } from '@angular/core';
 import { PostService } from '../../../shared/services/user-post.service';
-import { PostForHomePage } from '../../../shared/interfaces/posts-from-backend';
+import { UserPost } from '../../../shared/interfaces/posts-from-backend';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -19,7 +19,7 @@ export class LatestPostsComponent {
 
   
   postService = inject(PostService);
-  latestPosts:PostForHomePage[] = [];
+  latestPosts:UserPost[] = [];
   userService = inject(UserService);
   currentPage = 1;
   totalPages = 1;
@@ -33,7 +33,7 @@ export class LatestPostsComponent {
   
   loadPosts(page:number,limit:number){
   this.postService.getLatestPosts(page,limit).subscribe({
-    next: (response:{data:PostForHomePage[], totalItems:number, totalPages:number}) => {
+    next: (response:{data:UserPost[], totalItems:number, totalPages:number}) => {
       this.latestPosts = response.data;
       this.totalPages = response.totalPages;
       this.currentPage = page;
