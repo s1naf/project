@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../../shared/services/user-post.service';
-import { UserPost } from '../../../shared/interfaces/posts-from-backend';
+import { UserPost } from '../../../shared/interfaces/post-interface';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({

@@ -8,7 +8,7 @@ exports.findAll = async(req,res) =>{
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     if (limit === 0) {
-        limit = 10; // Προεπιλεγμένη τιμή αν το limit είναι 0
+        limit = 10; 
       }
     const startIndex = (page - 1) * limit;
 
@@ -25,7 +25,7 @@ exports.findAll = async(req,res) =>{
   
       console.log("Aggregated result:", result);
   
-      // Υπολογίζει το συνολικό αριθμό των posts
+      
       const totalItems = await User.aggregate([
         { $unwind: "$posts" },
         { $count: "total" }
@@ -64,12 +64,6 @@ exports.findOne = async(req,res) =>{
         }
         const posts = user.posts.slice(res.pagination.startIndex,res.pagination.startIndex + res.pagination.limit);
             console.log("Find posts for user",username ,"posts:",posts);
-
-    //     const formattedResult = posts.map(post => {
-    //         post.date = moment(post.date).format('DD/MM/YYYY HH:mm:ss');
-    //         console.log("Post date:", post.date);   
-    //         return post;
-    //   });
 
         res.json({
             status:true,
@@ -119,7 +113,6 @@ exports.update = async(req,res) =>{
    
   
     console.log("Update post for user: ",username, "post id: ",post_id, "post content: ",postContent);
-// gia docs 8:29 mathima 26/09
     try{
 
 

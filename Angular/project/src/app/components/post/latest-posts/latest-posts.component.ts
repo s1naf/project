@@ -1,6 +1,6 @@
 import { Component,inject } from '@angular/core';
 import { PostService } from '../../../shared/services/user-post.service';
-import { UserPost } from '../../../shared/interfaces/posts-from-backend';
+import { UserPost } from '../../../shared/interfaces/post-interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';

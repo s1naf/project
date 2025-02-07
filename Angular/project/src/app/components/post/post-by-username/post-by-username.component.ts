@@ -2,7 +2,7 @@ import { Component,effect,inject } from '@angular/core';
 import { PostService } from '../../../shared/services/user-post.service';
 import { UserService } from '../../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';//importing ActivatedRoute to get the username from the URL
-import { UserPost } from '../../../shared/interfaces/posts-from-backend';
+import { UserPost } from '../../../shared/interfaces/post-interface';
 import { CommonModule } from '@angular/common';
 import { FormGroup,FormControl,ReactiveFormsModule,Validators } from '@angular/forms';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator'; 

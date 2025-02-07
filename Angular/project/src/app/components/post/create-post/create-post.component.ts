@@ -1,7 +1,7 @@
 import { Component ,inject} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
-import { PostService } from '../../shared/services/user-post.service';
+import { PostService } from '../../../shared/services/user-post.service';
 
 @Component({
   selector: 'app-create-post',

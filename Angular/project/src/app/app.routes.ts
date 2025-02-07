@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
-import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { CreatePostComponent } from './components/posts/create-post.component';
-import { authGuard } from './shared/guards/auth.guard';
-import { authRoleGuard } from './shared/guards/auth-role.guard';
-import { ViewPostsComponent } from './components/admin/view-posts/view-posts.component';
-import { LatestPostsComponent } from './components/user-posts/latest-posts/latest-posts.component';
-import { PostByUsernameComponent } from './components/user-posts/post-by-username/post-by-username.component';
+import { CreatePostComponent } from './components/post/create-post/create-post.component';
+import { authGuard } from './components/guards/auth.guard';
+import { authRoleGuard } from './components/guards/auth-role.guard';
+import { ViewPostsComponent } from './components/admin/post-admin/view-posts.component';
+import { LatestPostsComponent } from './components/post/latest-posts/latest-posts.component';
+import { PostByUsernameComponent } from './components/post/post-by-username/post-by-username.component';
 import { UserUpdateComponent } from './components/user/user-update/user-update.component';
-import { UsersViewComponent } from './components/admin/users-view/users-view.component';
+import { UsersViewComponent } from './components/admin/user-admin/users-view.component';
 
 
 export const routes: Routes = [

@@ -1,7 +1,7 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { User, UserView } from '../interfaces/mongo-backend';
+import { User, UserView } from '../interfaces/user-interface';
 import { LoggedInUser, LoginUser } from '../interfaces/login-user';
 import { Router } from '@angular/router';
 import {jwtDecode} from 'jwt-decode';

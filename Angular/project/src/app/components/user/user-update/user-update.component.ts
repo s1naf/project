@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UserService } from '../../../shared/services/user.service';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserView } from '../../../shared/interfaces/mongo-backend';
+import { UserView } from '../../../shared/interfaces/user-interface';
 import * as bcrypt from 'bcryptjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 

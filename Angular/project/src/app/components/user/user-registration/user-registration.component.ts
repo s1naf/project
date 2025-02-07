@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../../shared/services/user.service';
-import { User } from '../../../shared/interfaces/mongo-backend';
+import { User } from '../../../shared/interfaces/user-interface';
 import { NgIf } from '@angular/common';
 import { Router,RouterLink } from '@angular/router';
 

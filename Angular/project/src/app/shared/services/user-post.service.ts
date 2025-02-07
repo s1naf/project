@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { UserService } from './user.service';
-import { UserPost } from '../interfaces/posts-from-backend';
+import { UserPost } from '../interfaces/post-interface';
 
 
 const API_URL=`${environment.apiURL}/api/posts`

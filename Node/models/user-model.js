@@ -55,7 +55,6 @@ let userSchema = new Schema({
             "Email address is not valid"
         ]
     },
-    // age : ageSchema,
     age:{
         type:Number,
         require:[true,'age is reuired'],
