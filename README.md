@@ -1,7 +1,7 @@
 # Project
 
 ## Description
-This project consists of an Angular frontend and a Node.js backend.The Project is a user and post management application that follows the MVC (Model-View-Controller) pattern. The application allows users to register, log in, create posts, and manage their profiles. Administrators have additional capabilities to manage users and posts.
+This project consists of  Angular frontend and  Node.js backend.The Project is a user and post management application that follows the MVC (Model-View-Controller) pattern. The application allows users to register, log in, create posts, and manage their profiles. Administrators have additional capabilities to manage users and posts.
 
 ## Table of Contents
 - [Installation](#Installation)
@@ -22,13 +22,13 @@ To clone the repository, run the following commands:
 - cd project
 
 ### Frontend
-The frontend is located in the `Angular/project` directory. It is built with Angular and includes various components such as `navbar`, `user-update`, `post-by-username`, and more. To start the development server, open a terminal and navigate to the `Angular/project` directory and run:
+The frontend is located in the `Angular/project` directory. It is built using Angular and includes various components such as `navbar`, `user-update`, `post-by-username`, and more. To start the development server, open a terminal and navigate to the `Angular/project` directory and run:
 
 - npm install
 - ng serve
 
 ### Backend
-The backend is located in the `Node` directory. It is built with Node.js and includes   parts such as `middleware`,`controllers`,`routes`. To start the development server, navigate to the `Node` directory and run:
+The backend is located in the `Node` directory. It is built using Node.js and includes parts such as `middleware`,`controllers`,`routes`. To start the development server, navigate to the `Node` directory and run:
 
 - npm install
 - npm run dev
@@ -234,7 +234,7 @@ The API documentation is generated using Swagger and can be accessed at `http://
 ## Testing
 Navigate to the `Node` directory, to run the tests, use the following command:
 
-npm test
+- npm test
 
 ## Contact Information
 For any inquiries, please contact the project maintainer at:
