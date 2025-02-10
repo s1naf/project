@@ -50,9 +50,6 @@ exports.findAll = async(req,res) =>{
 exports.findOne = async(req,res) =>{
     const username = req.params.username;
     
-
-    
-
     try{
         const user = await User.findOne(
             {username:username},

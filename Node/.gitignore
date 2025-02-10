@@ -1,7 +1,8 @@
 # env file
 .env
+
 #Node
 /node_modules
 
 #Logs
-Node/logs/
+/logs

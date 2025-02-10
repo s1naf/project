@@ -20,7 +20,6 @@ const logger = createLogger({
         timestamp({
             format: 'DD-MM-YYYY HH:mm:ss'
         }),
-        // prettyPrint()
         format.json()
     ),
     transports: [

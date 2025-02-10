@@ -66,13 +66,12 @@ onSubmit() {
     age: this.form.get('age')?.value || 18
   };
 
-  console.log("Submitting user:", newUser); // Log the user data
+  console.log("Submitting user:", newUser); 
 
   this.userService.registerUser(newUser).subscribe({
     next: (response) => {
       console.log("Registration success", response);
       this.submissionSuccess = true;
-      // this.form.reset();
       this.router.navigate(['/login']);
     },
     error: (response) => {
