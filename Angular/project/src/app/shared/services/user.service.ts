@@ -22,6 +22,7 @@ export class UserService {
 
   user = signal<LoggedInUser | null>(null)
   newRoleString: string = ' ';
+  newRole : boolean = false;
 
     
 
@@ -32,7 +33,7 @@ export class UserService {
         const decodedToken = jwtDecode(accessToken) as unknown as LoggedInUser;
         const mappedUsername = localStorage.getItem("username");
         
-        if(this.newRoleString){
+        if(this.newRole){
           const mappedRole = this.newRoleString;
           console.log("Mapped role",mappedRole)
           this.user.set({
@@ -117,6 +118,7 @@ updateUsername(newUsername: string) {
 }
 
 updateRole(newRole: string) {
+  this.newRole = true;
   this.newRoleString = newRole;
   const user = this.user();
   if (user) {
