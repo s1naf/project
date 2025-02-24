@@ -70,6 +70,18 @@ Replace `your_mongodb_uri` with your actual MongoDB URI and `your_jwt_secret` wi
 - Run the following command to start the server:
     npm start
 
+### Environment Configuration
+
+ **Update `environments` for production**:
+   - Open the `environment.ts` file in the `src/environments` directory.
+   - Update the configuration to match your production environment:
+     ```typescript
+     export const environment = {
+       production: true,
+       apiUrl: 'https://your-production-api-url'
+     };
+     ```
+
 
 ## Features
 - **User Authentication and Authorization**: Secure login and registration with JWT-based authentication.
