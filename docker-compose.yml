@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: ./Node
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./Node/.env
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./Angular/project
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
